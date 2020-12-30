@@ -43,9 +43,9 @@ const LogIn = () => {
       <h1>Log In</h1>
       <LogInForm onSubmit={handleSubmit}>
         <IDLabel>ID</IDLabel>
-        <IDInput onChange={handleChange("id")} />
+        <IDInput onChange={handleChange("id")} type="text" />
         <PWLabel>Password</PWLabel>
-        <PWInput onChange={handleChange("pw")} />
+        <PWInput onChange={handleChange("pw")} type="password" />
         {pwError && <PWError>more than 3 and less than 10</PWError>}
         <SubmitBtn type="submit">Log In</SubmitBtn>
       </LogInForm>
