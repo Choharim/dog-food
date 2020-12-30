@@ -8,17 +8,17 @@ const LogIn = () => {
   const [currentUser, setCurrentUser] = useState({ id: "", pw: "" });
   const [logInSuccess, setLogInSuccess] = useState(false);
   const [pwError, setPwError] = useState(false);
-  const { id, pw } = currentUser;
 
   const handleChange = (input) => (e) => {
     setCurrentUser({ ...currentUser, [input]: e.target.value });
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (currentUser.pw.length < 3 || currentUser.pw.length > 10) {
-      setPwError(true);
-    } else {
+    if (currentUser.pw.length >= 3 && currentUser.pw.length <= 10) {
       setPwError(false);
+      setLogInSuccess(true);
+    } else {
+      setPwError(true);
     }
     /*
   if (JSON.parse(localStorage.getItem("users")) !== null) {
@@ -34,7 +34,7 @@ const LogIn = () => {
   if (logInSuccess) {
     localStorage.setItem("currentUser", JSON.stringify(currentUser));
   }
-
+  console.log(currentUser, logInSuccess);
   return (
     <LogInContainer>
       <LogInIcon />

@@ -87,15 +87,13 @@ const SignUp = () => {
               </>
             ))}
           </ListContainer>
-          <BtnConatiner>
-            <BackBtn onClick={() => setStep(step - 1)}>Back</BackBtn>
-            <LogInBtn to="/">
-              Log In
-              <LogInIcon />
-            </LogInBtn>
-          </BtnConatiner>
+          <BackBtn onClick={() => setStep(step - 1)}>Back</BackBtn>
         </>
       )}
+      <LogInBtn to="/">
+        Log In
+        <LogInIcon />
+      </LogInBtn>
     </SignUpContainer>
   );
 };
@@ -203,11 +201,6 @@ const ListContent = styled.li`
   font-weight: lighter;
   padding-bottom: 10px;
 `;
-const BtnConatiner = styled.div`
-  width: 40%;
-  display: flex;
-  justify-content: space-between;
-`;
 
 const BackBtn = styled.button`
   width: 90px;
@@ -219,7 +212,9 @@ const BackBtn = styled.button`
 
 const LogInBtn = styled(Link)`
   width: 40%;
+  margin-top: 10px;
   display: flex;
+  justify-content: flex-end;
   align-items: center;
   text-decoration: none;
   &:visited {
