@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { FaDog } from "react-icons/fa";
 import { AiOutlineArrowRight } from "react-icons/ai";
@@ -8,8 +8,6 @@ const LogIn = () => {
   const [currentUser, setCurrentUser] = useState({ id: "", pw: "" });
   const [logInSuccess, setLogInSuccess] = useState(false);
   const [pwError, setPwError] = useState(false);
-  const str_LS_users = localStorage.getItem("users");
-  const pars_LS_users = JSON.parse(str_LS_users);
   const { id, pw } = currentUser;
 
   const handleChange = (input) => (e) => {
@@ -22,15 +20,15 @@ const LogIn = () => {
     } else {
       setPwError(false);
     }
-    if (pars_LS_users !== null) {
-      pars_LS_users.forEach((user) => {
-        if (user.id === currentUser.id && user.pw === currentUser.pw) {
-          setLogInSuccess(true);
-        }
-      });
-    } else {
-      alert("Please Sign Up");
-    }
+    /*
+  if (JSON.parse(localStorage.getItem("users")) !== null) {
+    JSON.parse(localStorage.getItem("users")).forEach((user) => {
+      if (user.id === currentUser.id && user.pw === currentUser.pw) {
+        setLogInSuccess(true);
+      }
+    });
+  }
+    */
   };
 
   if (logInSuccess) {

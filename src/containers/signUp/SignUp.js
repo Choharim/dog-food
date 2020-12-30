@@ -5,13 +5,14 @@ import { AiOutlineArrowRight } from "react-icons/ai";
 
 const SignUp = () => {
   const [users, setUsers] = useState({
-    step: 1,
     id: "",
     pw: "",
     name: "",
     address: "",
     phone: "",
   });
+
+  const [step, setStep] = useState(1);
   const [signUpSuccess, setSignUpSuccess] = useState(false);
 
   const handleChange = (input) => (e) => {
@@ -29,7 +30,7 @@ const SignUp = () => {
       users.phone !== ""
     ) {
       setSignUpSuccess(true);
-      setUsers((pre) => ({ ...pre, step: pre.step + 1 }));
+      setStep(step + 1);
     } else {
       setSignUpSuccess(false);
     }
@@ -41,34 +42,59 @@ const SignUp = () => {
 
   return (
     <SignUpContainer>
-      {users.step === 1 && (
+      {step === 1 && (
         <>
           <h1>Sign Up</h1>
           <SignUpForm onSubmit={handleSubmit}>
             <IDLabel>ID</IDLabel>
-            <IDInput onChange={handleChange("id")} type="text" />
+            <IDInput
+              onChange={handleChange("id")}
+              value={users.id}
+              type="text"
+            />
             <PWLabel>Password</PWLabel>
-            <PWInput onChange={handleChange("pw")} type="password" />
+            <PWInput
+              onChange={handleChange("pw")}
+              value={users.pw}
+              type="password"
+            />
             <NameLabel>Name</NameLabel>
-            <NameInput onChange={handleChange("name")} />
+            <NameInput onChange={handleChange("name")} value={users.name} />
             <AddressLabel>Address</AddressLabel>
-            <AddressInput onChange={handleChange("address")} />
+            <AddressInput
+              onChange={handleChange("address")}
+              value={users.address}
+            />
             <PhoneLabel>Phone Number</PhoneLabel>
             <PhoneInput
               onChange={handleChange("phone")}
+              value={users.phone}
               type="tel"
               pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
               placeholder="ex)010-1234-5678"
             />
-            <SubmitBtn type="submit">Sign Up</SubmitBtn>
+            <SignUpBtn type="submit">Sign Up</SignUpBtn>
           </SignUpForm>
         </>
       )}
-      {users.step === 2 && (
-        <LogInBtn to="/">
-          Log In
-          <LogInIcon />
-        </LogInBtn>
+      {step === 2 && (
+        <>
+          <ListContainer>
+            {Object.entries(users).map((ele) => (
+              <>
+                <ListTitle>{ele[0]}</ListTitle>
+                <ListContent>{ele[1]}</ListContent>
+              </>
+            ))}
+          </ListContainer>
+          <BtnConatiner>
+            <BackBtn onClick={() => setStep(step - 1)}>Back</BackBtn>
+            <LogInBtn to="/">
+              Log In
+              <LogInIcon />
+            </LogInBtn>
+          </BtnConatiner>
+        </>
       )}
     </SignUpContainer>
   );
@@ -151,7 +177,7 @@ const PhoneInput = styled.input`
   margin-bottom: 10px;
 `;
 
-const SubmitBtn = styled.button`
+const SignUpBtn = styled.button`
   width: 90px;
   height: 30px;
   outline: none;
@@ -160,11 +186,40 @@ const SubmitBtn = styled.button`
   align-self: flex-end;
 `;
 
+const ListContainer = styled.ul`
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const ListTitle = styled.li`
+  font-size: 1.5rem;
+  padding-bottom: 10px;
+`;
+
+const ListContent = styled.li`
+  font-weight: lighter;
+  padding-bottom: 10px;
+`;
+const BtnConatiner = styled.div`
+  width: 40%;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const BackBtn = styled.button`
+  width: 90px;
+  height: 30px;
+  outline: none;
+  border-radius: 5px;
+  padding: 5px 0;
+`;
+
 const LogInBtn = styled(Link)`
   width: 40%;
-  margin-top: 10px;
   display: flex;
-  justify-content: flex-end;
   align-items: center;
   text-decoration: none;
   &:visited {
