@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { AiOutlineArrowRight } from "react-icons/ai";
+import { TiDelete } from "react-icons/ti";
+import DaumPostcode from "react-daum-postcode";
 
 const SignUp = () => {
   const [userObj, setUserObj] = useState({
@@ -12,8 +14,10 @@ const SignUp = () => {
     phone: "",
   });
   const [usersArray, setUsersArray] = useState([]);
-  const [step, setStep] = useState(1);
   const [signUpSuccess, setSignUpSuccess] = useState(false);
+  const [step, setStep] = useState(1);
+  const [searchAddress, setSearchAddress] = useState(false);
+  const [addressInfo, setAddressInfo] = useState({ address: "", zoneCode: "" });
 
   useEffect(() => {
     if (JSON.parse(localStorage.getItem("users"))) {
@@ -25,6 +29,28 @@ const SignUp = () => {
     setStep(step - 1);
     setUsersArray(usersArray.slice(0, -1));
   };
+  const handleAddress = (data) => {
+    let address = data.address;
+    let extraAddress = "";
+    let zoneCode = data.zonecode;
+
+    if (data.addressType === "R") {
+      if (data.bname !== "") {
+        extraAddress += data.bname;
+      }
+      if (data.buildingName !== "") {
+        extraAddress +=
+          extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
+      }
+      address += extraAddress !== "" ? ` (${extraAddress})` : "";
+    }
+    setAddressInfo({
+      address,
+      zoneCode,
+    });
+    setUserObj({ ...userObj, address });
+  };
+  console.log(addressInfo, userObj);
   const handleChange = (input) => (e) => {
     setUserObj((pre) => ({ ...pre, [input]: e.target.value }));
   };
@@ -77,10 +103,23 @@ const SignUp = () => {
             <NameLabel>Name</NameLabel>
             <NameInput onChange={handleChange("name")} value={userObj.name} />
             <AddressLabel>Address</AddressLabel>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                width: "100%",
+              }}
+            >
+              <ZoneCodeInput value={addressInfo.zoneCode} />
+              <AddressBtn onClick={() => setSearchAddress(true)}>
+                Search
+              </AddressBtn>
+            </div>
             <AddressInput
               onChange={handleChange("address")}
               value={userObj.address}
             />
+            {searchAddress && <DaumPostcode onComplete={handleAddress} />}
             <PhoneLabel>Phone Number</PhoneLabel>
             <PhoneInput
               onChange={handleChange("phone")}
@@ -169,6 +208,22 @@ const NameInput = styled.input`
 
 const AddressLabel = styled.label`
   font-size: 1.2rem;
+`;
+
+const AddressBtn = styled.button`
+  width: 90px;
+  height: 30px;
+  outline: none;
+  border-radius: 5px;
+  padding: 5px 0;
+`;
+
+const ZoneCodeInput = styled.input`
+  width: 50%;
+  outline: none;
+  border-radius: 5px;
+  padding: 5px 0;
+  margin-bottom: 10px;
 `;
 
 const AddressInput = styled.input`
