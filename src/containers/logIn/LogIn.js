@@ -7,7 +7,7 @@ import { Link, useHistory } from "react-router-dom";
 const LogIn = () => {
   let history = useHistory();
   const [currentUser, setCurrentUser] = useState({ id: "", pw: "" });
-  const [localUsers, setLocalUsers] = useState({});
+  const [localUsers, setLocalUsers] = useState([]);
   const [logInSuccess, setLogInSuccess] = useState(false);
   const [pwError, setPwError] = useState(false);
 
@@ -28,27 +28,20 @@ const LogIn = () => {
       setPwError(true);
     }
     if (localUsers !== null) {
-      if (
-        localUsers.map((user) => {
-          if (user.id === currentUser.id && user.pw === currentUser.pw) {
-            return true;
-          } else {
-            return false;
-          }
-        })
-      ) {
-        setLogInSuccess(true);
-      } else {
-        setLogInSuccess(false);
-        localStorage.removeItem("currentUser");
-        setCurrentUser({ id: "", pw: "" });
-      }
+      localUsers.map((user) => {
+        if (user.id === currentUser.id && user.pw === currentUser.pw) {
+          setLogInSuccess(true);
+        } else {
+          setLogInSuccess(false);
+          localStorage.removeItem("currentUser");
+          setCurrentUser({ id: "", pw: "" });
+        }
+      });
     }
   };
 
   if (logInSuccess) {
     localStorage.setItem("currentUser", JSON.stringify(currentUser));
-    setCurrentUser({ id: "", pw: "" });
     history.push("/menu");
   }
   console.log(currentUser, logInSuccess, pwError);
