@@ -1,14 +1,27 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { FaDog } from "react-icons/fa";
 import { AiOutlineArrowRight } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 const LogIn = () => {
+  let history = useHistory();
   const [currentUser, setCurrentUser] = useState({ id: "", pw: "" });
   const [logInSuccess, setLogInSuccess] = useState(false);
   const [pwError, setPwError] = useState(false);
-
+  /*
+  useEffect(() => {
+    if (JSON.parse(localStorage.getItem("users"))) {
+      JSON.parse(localStorage.getItem("users")).map((user) => {
+        if (user.id === currentUser.id && user.pw === currentUser.pw) {
+          setLogInSuccess(true);
+        }
+      });
+    } else {
+      setLogInSuccess(false);
+    }
+  }, []);
+*/
   const handleChange = (input) => (e) => {
     setCurrentUser({ ...currentUser, [input]: e.target.value });
   };
@@ -20,21 +33,13 @@ const LogIn = () => {
     } else {
       setPwError(true);
     }
-    /*
-  if (JSON.parse(localStorage.getItem("users")) !== null) {
-    JSON.parse(localStorage.getItem("users")).forEach((user) => {
-      if (user.id === currentUser.id && user.pw === currentUser.pw) {
-        setLogInSuccess(true);
-      }
-    });
-  }
-    */
   };
 
   if (logInSuccess) {
     localStorage.setItem("currentUser", JSON.stringify(currentUser));
+    history.push("/menu");
   }
-  console.log(currentUser, logInSuccess);
+  console.log(currentUser, logInSuccess, pwError);
   return (
     <LogInContainer>
       <LogInIcon />
@@ -124,6 +129,7 @@ const SignUpBtn = styled(Link)`
   justify-content: flex-end;
   align-items: center;
   text-decoration: none;
+  color: black;
   &:visited {
     color: black;
   }
