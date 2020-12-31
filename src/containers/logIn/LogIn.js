@@ -28,15 +28,19 @@ const LogIn = () => {
       setPwError(true);
     }
     if (localUsers !== null) {
-      localUsers.map((user) => {
-        if (user.id === currentUser.id && user.pw === currentUser.pw) {
-          setLogInSuccess(true);
-        } else {
-          setLogInSuccess(false);
-          localStorage.removeItem("currentUser");
-          setCurrentUser({ id: "", pw: "" });
-        }
-      });
+      if (
+        localUsers.some(
+          (user) => user.id === currentUser.id && user.pw === currentUser.pw
+        )
+      ) {
+        setLogInSuccess(true);
+      } else {
+        setLogInSuccess(false);
+        localStorage.removeItem("currentUser");
+        setCurrentUser({ id: "", pw: "" });
+      }
+    } else {
+      setLogInSuccess(false);
     }
   };
 
@@ -44,7 +48,7 @@ const LogIn = () => {
     localStorage.setItem("currentUser", JSON.stringify(currentUser));
     history.push("/menu");
   }
-  console.log(currentUser, logInSuccess, pwError);
+  // console.log(currentUser, logInSuccess, pwError);
 
   return (
     <LogInContainer>

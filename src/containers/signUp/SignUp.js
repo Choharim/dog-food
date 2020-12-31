@@ -15,6 +15,12 @@ const SignUp = () => {
   const [step, setStep] = useState(1);
   const [signUpSuccess, setSignUpSuccess] = useState(false);
 
+  useEffect(() => {
+    if (JSON.parse(localStorage.getItem("users"))) {
+      setUsersArray(JSON.parse(localStorage.getItem("users")));
+    }
+  }, []);
+
   const backStep = () => {
     setStep(step - 1);
     setUsersArray(usersArray.slice(0, -1));
@@ -33,7 +39,10 @@ const SignUp = () => {
       userObj.pw.length <= 10 &&
       userObj.name !== "" &&
       userObj.address !== "" &&
-      userObj.phone !== ""
+      userObj.phone !== "" &&
+      usersArray.every(
+        (user) => user.id !== userObj.id && user.phone !== userObj.phone
+      )
     ) {
       createUsersArray();
       setSignUpSuccess(true);
