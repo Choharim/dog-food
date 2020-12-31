@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { FaDog } from "react-icons/fa";
 import { AiOutlineArrowRight } from "react-icons/ai";
@@ -7,21 +7,16 @@ import { Link, useHistory } from "react-router-dom";
 const LogIn = () => {
   let history = useHistory();
   const [currentUser, setCurrentUser] = useState({ id: "", pw: "" });
+  const [localUsers, setLocalUsers] = useState({});
   const [logInSuccess, setLogInSuccess] = useState(false);
   const [pwError, setPwError] = useState(false);
-  /*
+
   useEffect(() => {
     if (JSON.parse(localStorage.getItem("users"))) {
-      JSON.parse(localStorage.getItem("users")).map((user) => {
-        if (user.id === currentUser.id && user.pw === currentUser.pw) {
-          setLogInSuccess(true);
-        }
-      });
-    } else {
-      setLogInSuccess(false);
+      setLocalUsers(JSON.parse(localStorage.getItem("users")));
     }
   }, []);
-*/
+
   const handleChange = (input) => (e) => {
     setCurrentUser({ ...currentUser, [input]: e.target.value });
   };
@@ -29,26 +24,52 @@ const LogIn = () => {
     e.preventDefault();
     if (currentUser.pw.length >= 3 && currentUser.pw.length <= 10) {
       setPwError(false);
-      setLogInSuccess(true);
     } else {
       setPwError(true);
+    }
+    if (localUsers !== null) {
+      if (
+        localUsers.map((user) => {
+          if (user.id === currentUser.id && user.pw === currentUser.pw) {
+            return true;
+          } else {
+            return false;
+          }
+        })
+      ) {
+        setLogInSuccess(true);
+      } else {
+        setLogInSuccess(false);
+        localStorage.removeItem("currentUser");
+        setCurrentUser({ id: "", pw: "" });
+      }
     }
   };
 
   if (logInSuccess) {
     localStorage.setItem("currentUser", JSON.stringify(currentUser));
+    setCurrentUser({ id: "", pw: "" });
     history.push("/menu");
   }
   console.log(currentUser, logInSuccess, pwError);
+
   return (
     <LogInContainer>
       <LogInIcon />
       <h1>Log In</h1>
       <LogInForm onSubmit={handleSubmit}>
         <IDLabel>ID</IDLabel>
-        <IDInput onChange={handleChange("id")} type="text" />
+        <IDInput
+          onChange={handleChange("id")}
+          type="text"
+          value={currentUser.id}
+        />
         <PWLabel>Password</PWLabel>
-        <PWInput onChange={handleChange("pw")} type="password" />
+        <PWInput
+          onChange={handleChange("pw")}
+          type="password"
+          value={currentUser.pw}
+        />
         {pwError && <PWError>more than 3 and less than 10</PWError>}
         <SubmitBtn type="submit">Log In</SubmitBtn>
       </LogInForm>

@@ -1,34 +1,41 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { AiOutlineArrowRight } from "react-icons/ai";
 
 const SignUp = () => {
-  const [users, setUsers] = useState({
+  const [userObj, setUserObj] = useState({
     id: "",
     pw: "",
     name: "",
     address: "",
     phone: "",
   });
-
+  const [usersArray, setUsersArray] = useState([]);
   const [step, setStep] = useState(1);
   const [signUpSuccess, setSignUpSuccess] = useState(false);
 
-  const handleChange = (input) => (e) => {
-    setUsers((pre) => ({ ...pre, [input]: e.target.value }));
+  const backStep = () => {
+    setStep(step - 1);
+    setUsersArray(usersArray.slice(0, -1));
   };
-
+  const handleChange = (input) => (e) => {
+    setUserObj((pre) => ({ ...pre, [input]: e.target.value }));
+  };
+  const createUsersArray = () => {
+    setUsersArray((pre) => [...pre, userObj]);
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     if (
-      users.id !== "" &&
-      users.pw.length >= 3 &&
-      users.pw.length <= 10 &&
-      users.name !== "" &&
-      users.address !== "" &&
-      users.phone !== ""
+      userObj.id !== "" &&
+      userObj.pw.length >= 3 &&
+      userObj.pw.length <= 10 &&
+      userObj.name !== "" &&
+      userObj.address !== "" &&
+      userObj.phone !== ""
     ) {
+      createUsersArray();
       setSignUpSuccess(true);
       setStep(step + 1);
     } else {
@@ -37,7 +44,7 @@ const SignUp = () => {
   };
 
   if (signUpSuccess) {
-    localStorage.setItem("users", JSON.stringify(users));
+    localStorage.setItem("users", JSON.stringify(usersArray));
   }
 
   return (
@@ -49,26 +56,26 @@ const SignUp = () => {
             <IDLabel>ID</IDLabel>
             <IDInput
               onChange={handleChange("id")}
-              value={users.id}
+              value={userObj.id}
               type="text"
             />
             <PWLabel>Password</PWLabel>
             <PWInput
               onChange={handleChange("pw")}
-              value={users.pw}
+              value={userObj.pw}
               type="password"
             />
             <NameLabel>Name</NameLabel>
-            <NameInput onChange={handleChange("name")} value={users.name} />
+            <NameInput onChange={handleChange("name")} value={userObj.name} />
             <AddressLabel>Address</AddressLabel>
             <AddressInput
               onChange={handleChange("address")}
-              value={users.address}
+              value={userObj.address}
             />
             <PhoneLabel>Phone Number</PhoneLabel>
             <PhoneInput
               onChange={handleChange("phone")}
-              value={users.phone}
+              value={userObj.phone}
               type="tel"
               pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
               placeholder="ex)010-1234-5678"
@@ -80,14 +87,14 @@ const SignUp = () => {
       {step === 2 && (
         <>
           <ListContainer>
-            {Object.entries(users).map((ele) => (
+            {Object.entries(userObj).map((ele) => (
               <>
                 <ListTitle>{ele[0]}</ListTitle>
                 <ListContent>{ele[1]}</ListContent>
               </>
             ))}
           </ListContainer>
-          <BackBtn onClick={() => setStep(step - 1)}>Back</BackBtn>
+          <BackBtn onClick={backStep}>Back</BackBtn>
         </>
       )}
       <LogInBtn to="/">
