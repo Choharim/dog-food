@@ -1,8 +1,18 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import { FaDog } from "react-icons/fa";
-import { AiOutlineArrowRight } from "react-icons/ai";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import {
+  LogInContainer,
+  LogInIcon,
+  LogInForm,
+  IDLabel,
+  IDInput,
+  PWLabel,
+  PWInput,
+  PWError,
+  SubmitBtn,
+  SignUpBtn,
+  SignUpIcon,
+} from "./Style";
 
 const LogIn = () => {
   let history = useHistory();
@@ -79,81 +89,3 @@ const LogIn = () => {
 };
 
 export default LogIn;
-
-const LogInContainer = styled.div`
-  width: 100%;
-  margin-top: 200px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const LogInIcon = styled(FaDog)`
-  font-size: 3.5rem;
-`;
-
-const LogInForm = styled.form`
-  width: 40%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-`;
-
-const IDLabel = styled.label`
-  font-size: 1.2rem;
-`;
-
-const IDInput = styled.input`
-  width: 100%;
-  outline: none;
-  border-radius: 5px;
-  padding: 5px 0;
-  margin-bottom: 10px;
-`;
-
-const PWLabel = styled.label`
-  font-size: 1.2rem;
-`;
-
-const PWInput = styled.input`
-  width: 100%;
-  outline: none;
-  border-radius: 5px;
-  padding: 5px 0;
-  margin-bottom: 10px;
-`;
-
-const PWError = styled.p`
-  width: 100%;
-  margin: 0;
-  margin-bottom: 10px;
-  border-radius: 5px;
-  text-align: center;
-`;
-
-const SubmitBtn = styled.button`
-  width: 90px;
-  height: 30px;
-  outline: none;
-  border-radius: 5px;
-  padding: 5px 0;
-  align-self: flex-end;
-`;
-
-const SignUpBtn = styled(Link)`
-  width: 40%;
-  margin-top: 10px;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  text-decoration: none;
-  color: black;
-  &:visited {
-    color: black;
-  }
-`;
-
-const SignUpIcon = styled(AiOutlineArrowRight)`
-  font-size: 1.5rem;
-  padding-left: 5px;
-`;
