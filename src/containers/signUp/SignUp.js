@@ -1,9 +1,31 @@
 import React, { useState, useEffect } from "react";
-import styled, { css } from "styled-components";
-import { Link } from "react-router-dom";
-import { AiOutlineArrowRight } from "react-icons/ai";
-import { TiDelete } from "react-icons/ti";
 import DaumPostcode from "react-daum-postcode";
+import {
+  SignUpContainer,
+  SignUpForm,
+  IDLabel,
+  IDInput,
+  PWLabel,
+  PWInput,
+  NameLabel,
+  NameInput,
+  AddressLabel,
+  AddressBtn,
+  DaumPostContainer,
+  ZoneCodeInput,
+  ZoneCodeDelBtn,
+  AddressInput,
+  ExtraAddressInput,
+  PhoneLabel,
+  PhoneInput,
+  SignUpBtn,
+  ListContainer,
+  ListTitle,
+  ListContent,
+  BackBtn,
+  LogInBtn,
+  LogInIcon,
+} from "./Style";
 
 const SignUp = () => {
   const [userObj, setUserObj] = useState({
@@ -172,171 +194,3 @@ const SignUp = () => {
 };
 
 export default SignUp;
-
-const SignUpContainer = styled.div`
-  width: 100%;
-  margin-top: 200px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const SignUpForm = styled.form`
-  width: 40%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-`;
-
-const IDLabel = styled.label`
-  font-size: 1.2rem;
-`;
-
-const IDInput = styled.input`
-  width: 100%;
-  outline: none;
-  border-radius: 5px;
-  padding: 5px 0;
-  margin-bottom: 10px;
-`;
-
-const PWLabel = styled.label`
-  font-size: 1.2rem;
-`;
-
-const PWInput = styled.input`
-  width: 100%;
-  outline: none;
-  border-radius: 5px;
-  padding: 5px 0;
-  margin-bottom: 10px;
-`;
-
-const NameLabel = styled.label`
-  font-size: 1.2rem;
-`;
-
-const NameInput = styled.input`
-  width: 100%;
-  outline: none;
-  border-radius: 5px;
-  padding: 5px 0;
-  margin-bottom: 10px;
-`;
-
-const AddressLabel = styled.label`
-  font-size: 1.2rem;
-`;
-
-const AddressBtn = styled.button`
-  width: 90px;
-  height: 30px;
-  outline: none;
-  border-radius: 5px;
-  padding: 5px 0;
-`;
-
-const DaumPostContainer = styled.div`
-  border: 1px solid;
-  margin: 3px;
-  position: relative;
-  top: -5px;
-`;
-
-const ZoneCodeInput = styled.input`
-  width: 50%;
-  outline: none;
-  border-radius: 5px;
-  padding: 5px 0;
-  margin-bottom: 10px;
-`;
-
-const ZoneCodeDelBtn = styled(TiDelete)`
-  font-size: 2rem;
-  cursor: pointer;
-  position: absolute;
-  right: -5px;
-  top: -5px;
-  z-index: 1;
-`;
-
-const AddressInput = styled.input`
-  width: 100%;
-  outline: none;
-  border-radius: 5px;
-  padding: 5px 0;
-  margin-bottom: 10px;
-`;
-
-const ExtraAddressInput = styled.input`
-  width: 100%;
-  outline: none;
-  border-radius: 5px;
-  padding: 5px 0;
-  margin-bottom: 10px;
-`;
-
-const PhoneLabel = styled.label`
-  font-size: 1.2rem;
-`;
-
-const PhoneInput = styled.input`
-  width: 100%;
-  outline: none;
-  border-radius: 5px;
-  padding: 5px 0;
-  margin-bottom: 10px;
-`;
-
-const SignUpBtn = styled.button`
-  width: 90px;
-  height: 30px;
-  outline: none;
-  border-radius: 5px;
-  padding: 5px 0;
-  align-self: flex-end;
-`;
-
-const ListContainer = styled.ul`
-  padding: 0;
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const ListTitle = styled.li`
-  font-size: 1.5rem;
-  font-weight: bold;
-  padding-bottom: 20px;
-`;
-
-const ListContent = styled.li`
-  font-weight: lighter;
-  padding-bottom: 10px;
-`;
-
-const BackBtn = styled.button`
-  width: 90px;
-  height: 30px;
-  outline: none;
-  border-radius: 5px;
-  padding: 5px 0;
-`;
-
-const LogInBtn = styled(Link)`
-  width: 40%;
-  margin-top: 10px;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  text-decoration: none;
-  &:visited {
-    color: black;
-  }
-`;
-
-const LogInIcon = styled(AiOutlineArrowRight)`
-  font-size: 1.5rem;
-  padding-left: 5px;
-`;
