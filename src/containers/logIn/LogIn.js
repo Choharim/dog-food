@@ -58,7 +58,6 @@ const LogIn = () => {
     localStorage.setItem("currentUser", JSON.stringify(currentUser));
     history.push("/menu");
   }
-  // console.log(currentUser, logInSuccess, pwError);
 
   return (
     <LogInContainer>

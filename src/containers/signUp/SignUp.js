@@ -112,7 +112,7 @@ const SignUp = () => {
   if (signUpSuccess) {
     localStorage.setItem("users", JSON.stringify(usersArray));
   }
-  console.log(userObj);
+
   return (
     <SignUpContainer>
       {step === 1 && (
@@ -185,7 +185,7 @@ const SignUp = () => {
           <BackBtn onClick={backStep}>Back</BackBtn>
         </>
       )}
-      <LogInBtn to="/">
+      <LogInBtn to="/signIn">
         Log In
         <LogInIcon />
       </LogInBtn>

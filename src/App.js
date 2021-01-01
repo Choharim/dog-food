@@ -9,7 +9,7 @@ function App() {
   return (
     <HashRouter>
       <GlobalStyle />
-      <Route path="/" exact>
+      <Route path="/signIn" exact>
         <LogInPage />
       </Route>
       <Route path="/signUp" exact>
