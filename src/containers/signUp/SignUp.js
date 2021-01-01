@@ -30,23 +30,37 @@ const SignUp = () => {
     setUsersArray(usersArray.slice(0, -1));
   };
   const handleAddress = (data) => {
+    let currentScroll = Math.max(
+      document.body.scrollTop,
+      document.documentElement.scrollTop
+    );
     let address = data.address;
     let extraAddress = "";
     let zoneCode = data.zonecode;
 
-    if (data.addressType === "R") {
-      if (data.bname !== "") {
+    if (data.userSelectedType === "R") {
+      address = data.roadAddress;
+    } else {
+      address = data.jibunAddress;
+    }
+
+    if (data.userSelectedType === "R") {
+      if (data.bname !== "" && /[동|로|가]$/g.test(data.bname)) {
         extraAddress += data.bname;
       }
-      if (data.buildingName !== "") {
+      if (data.buildingName !== "" && data.apartment === "Y") {
         extraAddress +=
-          extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
+          extraAddress !== "" ? `,  ${data.buildingName}` : data.buildingName;
       }
-      address += extraAddress !== "" ? ` (${extraAddress})` : "";
+      if (extraAddress !== "") {
+        extraAddress = `(  ${extraAddress} )`;
+      }
     }
+
     setAddressInfo({
-      address,
       zoneCode,
+      address,
+      extraAddress,
     });
     setUserObj({ ...userObj, address });
   };
@@ -119,7 +133,13 @@ const SignUp = () => {
               onChange={handleChange("address")}
               value={userObj.address}
             />
-            {searchAddress && <DaumPostcode onComplete={handleAddress} />}
+            <ExtraAddressInput />
+            {searchAddress && (
+              <DaumPostContainer>
+                <ZoneCodeDelBtn onClick={() => setSearchAddress(false)} />
+                <DaumPostcode onComplete={handleAddress} />
+              </DaumPostContainer>
+            )}
             <PhoneLabel>Phone Number</PhoneLabel>
             <PhoneInput
               onChange={handleChange("phone")}
@@ -218,6 +238,13 @@ const AddressBtn = styled.button`
   padding: 5px 0;
 `;
 
+const DaumPostContainer = styled.div`
+  border: 1px solid;
+  margin: 3px;
+  position: relative;
+  top: -5px;
+`;
+
 const ZoneCodeInput = styled.input`
   width: 50%;
   outline: none;
@@ -226,7 +253,24 @@ const ZoneCodeInput = styled.input`
   margin-bottom: 10px;
 `;
 
+const ZoneCodeDelBtn = styled(TiDelete)`
+  font-size: 2rem;
+  cursor: pointer;
+  position: absolute;
+  right: -5px;
+  top: -5px;
+  z-index: 1;
+`;
+
 const AddressInput = styled.input`
+  width: 100%;
+  outline: none;
+  border-radius: 5px;
+  padding: 5px 0;
+  margin-bottom: 10px;
+`;
+
+const ExtraAddressInput = styled.input`
   width: 100%;
   outline: none;
   border-radius: 5px;
