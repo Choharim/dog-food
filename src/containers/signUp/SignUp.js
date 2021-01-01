@@ -12,13 +12,20 @@ const SignUp = () => {
     name: "",
     extraAddress: "",
     zoneCode: "",
-    fullAddress: "",
+    address: "",
     phone: "",
   });
   const [usersArray, setUsersArray] = useState([]);
   const [signUpSuccess, setSignUpSuccess] = useState(false);
   const [step, setStep] = useState(1);
   const [searchAddress, setSearchAddress] = useState(false);
+  const userData = {
+    닉네임: userObj.id,
+    비밀번호: userObj.pw,
+    이름: userObj.name,
+    주소: `(${userObj.zoneCode}) ${userObj.address}, ${userObj.extraAddress}`,
+    전화번호: userObj.phone,
+  };
 
   useEffect(() => {
     if (JSON.parse(localStorage.getItem("users"))) {
@@ -31,14 +38,14 @@ const SignUp = () => {
     setUsersArray(usersArray.slice(0, -1));
   };
   const handleAddress = (data) => {
-    let fullAddress = data.address;
+    let address = data.address;
     let extraAddress = "";
     let zoneCode = data.zonecode;
 
     if (data.userSelectedType === "R") {
-      fullAddress = data.roadAddress;
+      address = data.roadAddress;
     } else {
-      fullAddress = data.jibunAddress;
+      address = data.jibunAddress;
     }
     if (data.userSelectedType === "R") {
       if (data.bname !== "") {
@@ -48,9 +55,9 @@ const SignUp = () => {
         extraAddress +=
           extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
       }
-      fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
+      address += extraAddress !== "" ? ` (${extraAddress})` : "";
     }
-    setUserObj({ ...userObj, zoneCode, fullAddress });
+    setUserObj({ ...userObj, zoneCode, address });
   };
 
   const handleChange = (input) => (e) => {
@@ -83,7 +90,7 @@ const SignUp = () => {
   if (signUpSuccess) {
     localStorage.setItem("users", JSON.stringify(usersArray));
   }
-
+  console.log(userObj);
   return (
     <SignUpContainer>
       {step === 1 && (
@@ -118,8 +125,8 @@ const SignUp = () => {
               </AddressBtn>
             </div>
             <AddressInput
-              onChange={handleChange("fullAddress")}
-              value={userObj.fullAddress}
+              onChange={handleChange("address")}
+              value={userObj.address}
             />
             <ExtraAddressInput
               onChange={handleChange("extraAddress")}
@@ -146,7 +153,7 @@ const SignUp = () => {
       {step === 2 && (
         <>
           <ListContainer>
-            {Object.entries(userObj).map((ele) => (
+            {Object.entries(userData).map((ele) => (
               <>
                 <ListTitle>{ele[0]}</ListTitle>
                 <ListContent>{ele[1]}</ListContent>
@@ -300,7 +307,8 @@ const ListContainer = styled.ul`
 
 const ListTitle = styled.li`
   font-size: 1.5rem;
-  padding-bottom: 10px;
+  font-weight: bold;
+  padding-bottom: 20px;
 `;
 
 const ListContent = styled.li`
