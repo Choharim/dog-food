@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import { TiDelete } from "react-icons/ti";
@@ -10,14 +10,15 @@ const SignUp = () => {
     id: "",
     pw: "",
     name: "",
-    address: "",
+    extraAddress: "",
+    zoneCode: "",
+    fullAddress: "",
     phone: "",
   });
   const [usersArray, setUsersArray] = useState([]);
   const [signUpSuccess, setSignUpSuccess] = useState(false);
   const [step, setStep] = useState(1);
   const [searchAddress, setSearchAddress] = useState(false);
-  const [addressInfo, setAddressInfo] = useState({ address: "", zoneCode: "" });
 
   useEffect(() => {
     if (JSON.parse(localStorage.getItem("users"))) {
@@ -30,41 +31,28 @@ const SignUp = () => {
     setUsersArray(usersArray.slice(0, -1));
   };
   const handleAddress = (data) => {
-    let currentScroll = Math.max(
-      document.body.scrollTop,
-      document.documentElement.scrollTop
-    );
-    let address = data.address;
+    let fullAddress = data.address;
     let extraAddress = "";
     let zoneCode = data.zonecode;
 
     if (data.userSelectedType === "R") {
-      address = data.roadAddress;
+      fullAddress = data.roadAddress;
     } else {
-      address = data.jibunAddress;
+      fullAddress = data.jibunAddress;
     }
-
     if (data.userSelectedType === "R") {
-      if (data.bname !== "" && /[동|로|가]$/g.test(data.bname)) {
+      if (data.bname !== "") {
         extraAddress += data.bname;
       }
-      if (data.buildingName !== "" && data.apartment === "Y") {
+      if (data.buildingName !== "") {
         extraAddress +=
-          extraAddress !== "" ? `,  ${data.buildingName}` : data.buildingName;
+          extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
       }
-      if (extraAddress !== "") {
-        extraAddress = `(  ${extraAddress} )`;
-      }
+      fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
     }
-
-    setAddressInfo({
-      zoneCode,
-      address,
-      extraAddress,
-    });
-    setUserObj({ ...userObj, address });
+    setUserObj({ ...userObj, zoneCode, fullAddress });
   };
-  console.log(addressInfo, userObj);
+
   const handleChange = (input) => (e) => {
     setUserObj((pre) => ({ ...pre, [input]: e.target.value }));
   };
@@ -124,16 +112,19 @@ const SignUp = () => {
                 width: "100%",
               }}
             >
-              <ZoneCodeInput value={addressInfo.zoneCode} />
+              <ZoneCodeInput value={userObj.zoneCode} />
               <AddressBtn onClick={() => setSearchAddress(true)}>
                 Search
               </AddressBtn>
             </div>
             <AddressInput
-              onChange={handleChange("address")}
-              value={userObj.address}
+              onChange={handleChange("fullAddress")}
+              value={userObj.fullAddress}
             />
-            <ExtraAddressInput />
+            <ExtraAddressInput
+              onChange={handleChange("extraAddress")}
+              value={userObj.extraAddress}
+            />
             {searchAddress && (
               <DaumPostContainer>
                 <ZoneCodeDelBtn onClick={() => setSearchAddress(false)} />
