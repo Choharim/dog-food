@@ -32,11 +32,7 @@ const Home = () => {
   };
 
   const filterFoodArray = (category) => {
-    if (category === "all") {
-      setFoodArray(Data);
-    } else {
-      setFoodArray(Data.filter((food) => food.category === category));
-    }
+    setFoodArray(Data.filter((food) => food.category === category));
   };
 
   return (
