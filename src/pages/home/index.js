@@ -1,13 +1,13 @@
 import React from "react";
-import Menu from "../../containers/menu/Menu";
+import Home from "../../containers/home/Home";
 import Frame from "../../components/Frame";
 
-const MenuPage = () => {
+const HomePage = () => {
   return (
     <Frame>
-      <Menu />
+      <Home />
     </Frame>
   );
 };
 
-export default MenuPage;
+export default HomePage;

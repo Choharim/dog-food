@@ -56,7 +56,7 @@ const LogIn = () => {
 
   if (logInSuccess) {
     localStorage.setItem("currentUser", JSON.stringify(currentUser));
-    history.push("/menu");
+    history.push("/");
   }
 
   return (
