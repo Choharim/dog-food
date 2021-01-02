@@ -1,6 +1,14 @@
 import styled, { css } from "styled-components";
 import { FaBars } from "react-icons/fa";
+import { AiOutlineHeart } from "react-icons/ai";
 import { Link } from "react-router-dom";
+
+export const HomeContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
 export const BarIcon = styled(FaBars)`
   position: fixed;
@@ -62,6 +70,11 @@ export const MenuFilterItem = styled.button`
   flex-direction: column;
   align-items: center;
   cursor: pointer;
+  ${(props) =>
+    props.color &&
+    css`
+      background-color: #f0e2d0;
+    `}
 `;
 
 export const MenuFilterIcon = styled.img`
@@ -71,4 +84,22 @@ export const MenuFilterIcon = styled.img`
 
 export const MenuFilterText = styled.span`
   font-size: 1.2rem;
+`;
+
+export const MenuContainer = styled.div`
+  display: flex;
+  flex-wrap: nowrap;
+  margin-top: 60px;
+`;
+
+export const MenuItemContainer = styled.div`
+  width: 300px;
+  height: 400px;
+  margin: 0 15px;
+`;
+
+export const HeartIcon = styled(AiOutlineHeart)`
+  position: relative;
+  left: 85%;
+  font-size: 2rem;
 `;
