@@ -4,8 +4,11 @@ import pumkinSalad from "../../images/dish-3-3.jpg";
 import plumSalad from "../../images/dish-4-4.jpg";
 import eggLasagna from "../../images/dish-5-5.jpg";
 import chickenTomatoSoup from "../../images/dish-6-6.jpg";
+import pumkinTea from "../../images/drink-1.jpg";
+import salmon from "../../images/snack-1.jpg";
+import carrot from "../../images/snack-2.jpg";
 
-export const data = [
+export const Data = [
   { category: "dish", image: potatoPizza, name: "감자튀김 피자", price: 8000 },
   {
     category: "dish",
@@ -36,5 +39,23 @@ export const data = [
     image: chickenTomatoSoup,
     name: "치킨 토마토 스프",
     price: 10000,
+  },
+  {
+    category: "drink",
+    image: pumkinTea,
+    name: "호박 차",
+    price: 5000,
+  },
+  {
+    category: "snack",
+    image: salmon,
+    name: "연어 쿠키",
+    price: 3000,
+  },
+  {
+    category: "snack",
+    image: carrot,
+    name: "당근 쿠키",
+    price: 2000,
   },
 ];

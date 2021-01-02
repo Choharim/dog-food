@@ -1,26 +1,22 @@
 import React, { useState, useEffect } from "react";
-import drink from "../../icons/drink.png";
-import dish from "../../icons/dish.png";
-import snack from "../../icons/snack.png";
 import {
   HomeContainer,
   BarIcon,
   Navbar,
   LogOut,
   LogIn,
-  MenuFilterContainer,
-  MenuFilterItem,
-  MenuFilterIcon,
-  MenuFilterText,
   MenuContainer,
   MenuItemContainer,
   HeartIcon,
+  FoodPicture,
 } from "./Style";
+import Categories from "./Categories";
+import { Data } from "./Data";
 
 const Home = () => {
   const [showNavbar, setShowNavbar] = useState(false);
   const [isUser, setIsUser] = useState(false);
-  const [category, setCategory] = useState("all");
+  const [foodArray, setFoodArray] = useState(Data);
 
   useEffect(() => {
     if (localStorage.getItem("currentUser")) {
@@ -35,7 +31,14 @@ const Home = () => {
     setIsUser(false);
   };
 
-  console.log(category);
+  const filterFoodArray = (category) => {
+    if (category === "all") {
+      setFoodArray(Data);
+    } else {
+      setFoodArray(Data.filter((food) => food.category === category));
+    }
+  };
+
   return (
     <HomeContainer>
       <BarIcon
@@ -51,42 +54,16 @@ const Home = () => {
           )}
         </Navbar>
       )}
-      <MenuFilterContainer>
-        <MenuFilterItem
-          color={category === "dish"}
-          onClick={() => setCategory("dish")}
-        >
-          <MenuFilterIcon src={dish} />
-          <MenuFilterText>Dish</MenuFilterText>
-        </MenuFilterItem>
-        <MenuFilterItem
-          color={category === "drink"}
-          onClick={() => setCategory("drink")}
-        >
-          <MenuFilterIcon src={drink} />
-          <MenuFilterText>Drink</MenuFilterText>
-        </MenuFilterItem>
-        <MenuFilterItem
-          color={category === "snack"}
-          onClick={() => setCategory("snack")}
-        >
-          <MenuFilterIcon src={snack} />
-          <MenuFilterText>Snack</MenuFilterText>
-        </MenuFilterItem>
-      </MenuFilterContainer>
+      <Categories filterFoodArray={filterFoodArray} />
       <MenuContainer>
-        <MenuItemContainer>
-          <HeartIcon />
-        </MenuItemContainer>
-        <MenuItemContainer>
-          <HeartIcon />
-        </MenuItemContainer>
-        <MenuItemContainer>
-          <HeartIcon />
-        </MenuItemContainer>
-        <MenuItemContainer>
-          <HeartIcon />
-        </MenuItemContainer>
+        {foodArray.map((food, index) => {
+          return (
+            <MenuItemContainer key={index}>
+              <HeartIcon />
+              <FoodPicture src={food.image} />
+            </MenuItemContainer>
+          );
+        })}
       </MenuContainer>
     </HomeContainer>
   );

@@ -96,10 +96,19 @@ export const MenuItemContainer = styled.div`
   width: 300px;
   height: 400px;
   margin: 0 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 export const HeartIcon = styled(AiOutlineHeart)`
   position: relative;
   left: 85%;
   font-size: 2rem;
+`;
+
+export const FoodPicture = styled.img`
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
 `;
