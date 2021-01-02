@@ -9,6 +9,8 @@ import {
   MenuItemContainer,
   HeartIcon,
   FoodPicture,
+  FoodName,
+  FoodPrice,
 } from "./Style";
 import Categories from "./Categories";
 import { Data } from "./Data";
@@ -35,6 +37,8 @@ const Home = () => {
     setFoodArray(Data.filter((food) => food.category === category));
   };
 
+  const goUrl = () => {};
+
   return (
     <HomeContainer>
       <BarIcon
@@ -54,9 +58,11 @@ const Home = () => {
       <MenuContainer>
         {foodArray.map((food, index) => {
           return (
-            <MenuItemContainer key={index}>
+            <MenuItemContainer key={index} onClick={goUrl}>
               <HeartIcon />
               <FoodPicture src={food.image} />
+              <FoodName>{food.name}</FoodName>
+              <FoodPrice>{food.price} 원</FoodPrice>
             </MenuItemContainer>
           );
         })}

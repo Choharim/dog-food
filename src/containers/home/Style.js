@@ -92,23 +92,39 @@ export const MenuContainer = styled.div`
   margin-top: 60px;
 `;
 
-export const MenuItemContainer = styled.div`
+export const MenuItemContainer = styled.button`
+  outline: none;
+  background-color: transparent;
   width: 300px;
   height: 400px;
   margin: 0 15px;
+  border-radius: 10px;
+  border: 2px solid;
   display: flex;
   flex-direction: column;
   align-items: center;
+  cursor: pointer;
 `;
 
 export const HeartIcon = styled(AiOutlineHeart)`
   position: relative;
-  left: 85%;
+  top: 0;
+  right: -45%;
   font-size: 2rem;
 `;
 
 export const FoodPicture = styled.img`
   border-radius: 50%;
-  width: 100px;
-  height: 100px;
+  width: 210px;
+  height: 210px;
+  margin-bottom: 20px;
+`;
+
+export const FoodName = styled.p`
+  font-size: 1.2rem;
+  font-weight: bold;
+`;
+
+export const FoodPrice = styled.p`
+  margin: 0;
 `;
