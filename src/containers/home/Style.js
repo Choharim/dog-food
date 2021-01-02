@@ -4,18 +4,18 @@ import { Link } from "react-router-dom";
 
 export const BarContainer = styled.div`
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 `;
 
 export const BarIcon = styled(FaBars)`
-  position: sticky;
-  top: 0;
-  left: 0;
   font-size: 1.5rem;
   padding: 10px;
 `;
 
 export const Navbar = styled.div`
-  width: 550px;
+  width: 330px;
   height: 100vh;
   background-color: black;
   display: flex;
@@ -30,6 +30,7 @@ export const LogOut = styled.button`
   font-size: 1.4rem;
   background-color: transparent;
   color: white;
+  cursor: pointer;
 `;
 
 export const LogIn = styled(Link)`

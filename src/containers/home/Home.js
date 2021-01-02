@@ -13,21 +13,24 @@ const Home = () => {
     }
   }, []);
 
+  const logOut = () => {
+    localStorage.removeItem("currentUser");
+    setIsUser(false);
+  };
+
   return (
-    <>
-      <BarContainer>
-        <BarIcon onClick={() => setShowNavbar(!showNavbar)} />
-      </BarContainer>
+    <BarContainer>
+      <BarIcon onClick={() => setShowNavbar(!showNavbar)} />
       {showNavbar && (
         <Navbar>
           {isUser ? (
-            <LogOut>Log Out</LogOut>
+            <LogOut onClick={logOut}>Log Out</LogOut>
           ) : (
             <LogIn to="/signIn">Log In</LogIn>
           )}
         </Navbar>
       )}
-    </>
+    </BarContainer>
   );
 };
 
