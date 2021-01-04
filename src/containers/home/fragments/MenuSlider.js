@@ -41,7 +41,7 @@ const MenuSlider = ({ foodArray, gotMenuDetails }) => {
             ) : (
               <HeartIcon onClick={() => setFavorite([...favorite, index])} />
             )}
-            <FoodPicture src={food.image} />
+            <FoodPicture image={food.image} />
             <FoodName>{food.name}</FoodName>
             <FoodPrice>{food.price} 원</FoodPrice>
           </MenuItemContainer>
@@ -93,7 +93,9 @@ const FillHeartIcon = styled(AiFillHeart)`
   color: rgb(237, 73, 86);
 `;
 
-const FoodPicture = styled.img`
+const FoodPicture = styled.div`
+  background-image: url(${(props) => props.image});
+  background-size: cover;
   border-radius: 50%;
   width: 210px;
   height: 210px;
