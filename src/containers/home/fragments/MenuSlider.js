@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 
-const MenuSlider = ({ foodArray }) => {
+const MenuSlider = ({ foodArray, gotMenuDetails }) => {
   const [favorite, setFavorite] = useState([]);
 
   const settings = {
@@ -18,13 +18,16 @@ const MenuSlider = ({ foodArray }) => {
     pauseOnHover: true,
     arrows: false,
   };
-  // const toggle;
-  console.log(favorite);
+  const handleClick = (e) => {
+    console.log(e.target);
+    //gotMenuDetails(food);
+  };
+
   return (
     <MenuContainer {...settings}>
       {foodArray.map((food, index) => {
         return (
-          <MenuItemContainer key={index}>
+          <MenuItemContainer key={index} onClick={handleClick}>
             {index === favorite.find((item) => item === index) ? (
               <FillHeartIcon
                 onClick={() =>
@@ -50,7 +53,7 @@ const MenuContainer = styled(Slider)`
   width: 100%;
   display: flex;
   justify-content: center;
-  margin-top: 70px;
+  margin: 50px 0;
   .slick-dots {
     > li {
       margin: -5px -2px;

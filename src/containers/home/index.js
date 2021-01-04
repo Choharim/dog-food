@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
-import Categories from "./Categories";
-import MenuSlider from "./MenuSlider";
+import Categories from "./fragments/Categories";
+import MenuSlider from "./fragments/MenuSlider";
+import MenuDetails from "./fragments/MenuDetails";
+import ApplyModal from "./fragments/ApplyModal";
 import { Data } from "./Data";
 import styled, { css } from "styled-components";
 import { FaBars } from "react-icons/fa";
@@ -10,6 +12,7 @@ const Home = () => {
   const [showNavbar, setShowNavbar] = useState(false);
   const [isUser, setIsUser] = useState(false);
   const [foodArray, setFoodArray] = useState(Data);
+  const [showMenuDetails, setShowMenuDetails] = useState({});
 
   useEffect(() => {
     if (localStorage.getItem("currentUser")) {
@@ -23,31 +26,38 @@ const Home = () => {
     localStorage.removeItem("currentUser");
     setIsUser(false);
   };
-
   const filterFoodArray = (category) => {
     setFoodArray(Data.filter((food) => food.category === category));
   };
-
-  const goUrl = () => {};
+  const gotMenuDetails = (foodObj) => {
+    setShowMenuDetails(foodObj);
+  };
 
   return (
-    <HomeContainer>
-      <BarIcon
-        showNavbar={showNavbar}
-        onClick={() => setShowNavbar(!showNavbar)}
-      />
-      {showNavbar && (
-        <Navbar>
-          {isUser ? (
-            <LogOut onClick={logOut}>Log Out</LogOut>
-          ) : (
-            <LogIn to="/signIn">Log In</LogIn>
+    <>
+      {Object.keys(showMenuDetails).length === 0 ? (
+        <HomeContainer>
+          <BarIcon
+            showNavbar={showNavbar}
+            onClick={() => setShowNavbar(!showNavbar)}
+          />
+          {showNavbar && (
+            <Navbar>
+              {isUser ? (
+                <LogOut onClick={logOut}>Log Out</LogOut>
+              ) : (
+                <LogIn to="/signIn">Log In</LogIn>
+              )}
+            </Navbar>
           )}
-        </Navbar>
+          <Categories filterFoodArray={filterFoodArray} />
+          <MenuSlider foodArray={foodArray} gotMenuDetails={gotMenuDetails} />
+          <ApplyModal />
+        </HomeContainer>
+      ) : (
+        <MenuDetails showMenuDetails={showMenuDetails} />
       )}
-      <Categories filterFoodArray={filterFoodArray} />
-      <MenuSlider foodArray={foodArray} />
-    </HomeContainer>
+    </>
   );
 };
 

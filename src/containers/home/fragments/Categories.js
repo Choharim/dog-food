@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import drink from "../../icons/drink.png";
-import dish from "../../icons/dish.png";
-import snack from "../../icons/snack.png";
+import drink from "../../../icons/drink.png";
+import dish from "../../../icons/dish.png";
+import snack from "../../../icons/snack.png";
 import styled, { css } from "styled-components";
 
 const Categories = ({ filterFoodArray }) => {
