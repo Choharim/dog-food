@@ -6,12 +6,14 @@ const ApplyModal = () => {
 
   return (
     <>
-      {showModal ? (
+      {!showModal ? (
+        <ModalHead>
+          <TouchLine></TouchLine>
+        </ModalHead>
+      ) : (
         <Background>
           <ModalContainer></ModalContainer>
         </Background>
-      ) : (
-        <ModalHead />
       )}
     </>
   );
@@ -27,6 +29,14 @@ const ModalHead = styled.div`
   border-top-left-radius: 30px;
   border-top-right-radius: 30px;
   border: 1px solid black;
+`;
+
+const TouchLine = styled.div`
+  width: 70px;
+  height: 6px;
+  background-color: rgb(217, 217, 217);
+  margin: 15px auto 35px;
+  border-radius: 20px;
 `;
 
 const Background = styled.div`
