@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
 import { AiOutlineCheck } from "react-icons/ai";
 import { useHistory } from "react-router-dom";
@@ -6,9 +6,15 @@ import { useHistory } from "react-router-dom";
 const ApplyModal = () => {
   const [showModal, setShowModal] = useState(false);
   let history = useHistory();
-  console.log(showModal);
+
+  const handleClick = (e) => {
+    if (e.target.id === "bg") {
+      setShowModal(false);
+    }
+  };
+
   return (
-    <Background showModal={showModal}>
+    <Background showModal={showModal} id="bg" onClick={handleClick}>
       <ModalContainer showModal={showModal}>
         <TouchLineArea onClick={() => setShowModal(!showModal)}>
           <TouchLine></TouchLine>
@@ -25,7 +31,6 @@ const ApplyModal = () => {
 export default ApplyModal;
 
 const Background = styled.div`
-  z-index: 100;
   position: fixed;
   width: 100%;
   height: 100%;
@@ -38,19 +43,19 @@ const Background = styled.div`
     css`
       visibility: visible;
     `}
-  transition: all 0.2s ease 0s;
+  transition: all 0.2s ease;
 `;
 
 const ModalContainer = styled.div`
   z-index: 1000;
   position: absolute;
-  bottom: -600px;
+  bottom: -75%;
   width: 100%;
+  height: 100%;
   max-width: 600px;
   background-color: white;
   border-top-left-radius: 30px;
   border-top-right-radius: 30px;
-  height: calc(100% - 70px);
   visibility: visible;
   display: flex;
   flex-direction: column;
@@ -59,9 +64,9 @@ const ModalContainer = styled.div`
   ${(props) =>
     props.showModal &&
     css`
-      bottom: -20px;
+      top: 10%;
     `}
-  transition: all 0.2s ease 0s;
+  transition: all 0.2s ease;
 `;
 
 const TouchLineArea = styled.div`
