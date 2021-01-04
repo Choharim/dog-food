@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import styled from "styled-components";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 
-const MenuSlider = ({ foodArray, gotMenuDetails }) => {
+const MenuSlider = ({ foodArray, setShowMenuDetails }) => {
   const [favorite, setFavorite] = useState([]);
 
   const settings = {
@@ -28,7 +28,7 @@ const MenuSlider = ({ foodArray, gotMenuDetails }) => {
             key={index}
             onClick={(e) => {
               if (e.target.id === "food") {
-                gotMenuDetails(food);
+                setShowMenuDetails(food);
               }
             }}
           >
@@ -60,7 +60,7 @@ const MenuContainer = styled(Slider)`
   margin: 50px 0;
   .slick-dots {
     > li {
-      margin: -5px -2px;
+      margin: -10px -2px;
     }
   }
 `;

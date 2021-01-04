@@ -29,9 +29,6 @@ const Home = () => {
   const filterFoodArray = (category) => {
     setFoodArray(Data.filter((food) => food.category === category));
   };
-  const gotMenuDetails = (foodObj) => {
-    setShowMenuDetails(foodObj);
-  };
 
   return (
     <>
@@ -51,11 +48,17 @@ const Home = () => {
             </Navbar>
           )}
           <Categories filterFoodArray={filterFoodArray} />
-          <MenuSlider foodArray={foodArray} gotMenuDetails={gotMenuDetails} />
+          <MenuSlider
+            foodArray={foodArray}
+            setShowMenuDetails={setShowMenuDetails}
+          />
           <ApplyModal />
         </HomeContainer>
       ) : (
-        <MenuDetails showMenuDetails={showMenuDetails} />
+        <MenuDetails
+          showMenuDetails={showMenuDetails}
+          setShowMenuDetails={setShowMenuDetails}
+        />
       )}
     </>
   );
