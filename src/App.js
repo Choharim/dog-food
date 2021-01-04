@@ -4,6 +4,7 @@ import { createGlobalStyle } from "styled-components";
 import LogInPage from "./pages/logIn/index";
 import SignUpPage from "./pages/signUp/index";
 import HomePage from "./pages/home/index";
+import LecturePage from "./pages/lecture/index";
 
 function App() {
   return (
@@ -17,6 +18,9 @@ function App() {
       </Route>
       <Route path="/signUp" exact>
         <SignUpPage />
+      </Route>
+      <Route path="/lecture" exact>
+        <LecturePage />
       </Route>
     </HashRouter>
   );
