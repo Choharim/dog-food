@@ -1,51 +1,78 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { AiOutlineCheck } from "react-icons/ai";
 import { useHistory } from "react-router-dom";
 
 const ApplyModal = () => {
   const [showModal, setShowModal] = useState(false);
   let history = useHistory();
-
+  console.log(showModal);
   return (
-    <>
-      {!showModal ? (
-        <ModalHead>
+    <Background showModal={showModal}>
+      <ModalContainer showModal={showModal}>
+        <TouchLineArea onClick={() => setShowModal(!showModal)}>
           <TouchLine></TouchLine>
-          <ModalHeadTitle>직접 요리해보고 싶나요?</ModalHeadTitle>
-          <ModalHeadText onClick={() => history.push("/lecture")}>
-            요리 수업 신청하러 가기 <AiOutlineCheck />
-          </ModalHeadText>
-        </ModalHead>
-      ) : (
-        <Background>
-          <ModalContainer></ModalContainer>
-        </Background>
-      )}
-    </>
+        </TouchLineArea>
+        <ModalHeadTitle>직접 요리해보고 싶나요?</ModalHeadTitle>
+        <ModalHeadText onClick={() => history.push("/lecture")}>
+          요리 수업 신청하러 가기 <AiOutlineCheck />
+        </ModalHeadText>
+      </ModalContainer>
+    </Background>
   );
 };
 
 export default ApplyModal;
 
-const ModalHead = styled.div`
-  position: relative;
-  bottom: -30px;
+const Background = styled.div`
+  z-index: 100;
+  position: fixed;
   width: 100%;
   height: 100%;
+  visibility: hidden;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  ${(props) =>
+    props.showModal &&
+    css`
+      visibility: visible;
+    `}
+  transition: all 0.2s ease 0s;
+`;
+
+const ModalContainer = styled.div`
+  z-index: 1000;
+  position: absolute;
+  bottom: -600px;
+  width: 100%;
+  max-width: 600px;
   background-color: white;
   border-top-left-radius: 30px;
   border-top-right-radius: 30px;
-  border: 1px solid black;
+  height: calc(100% - 70px);
+  visibility: visible;
   display: flex;
   flex-direction: column;
   align-items: center;
+  border: 1px solid black;
+  ${(props) =>
+    props.showModal &&
+    css`
+      bottom: -20px;
+    `}
+  transition: all 0.2s ease 0s;
+`;
+
+const TouchLineArea = styled.div`
+  width: 100%;
+  cursor: pointer;
 `;
 
 const TouchLine = styled.div`
   width: 70px;
   height: 6px;
-  margin: 15px auto 35px;
+  margin: 18px auto 35px;
   background-color: rgb(217, 217, 217);
   border-radius: 20px;
 `;
@@ -64,27 +91,4 @@ const ModalHeadText = styled.button`
   background-color: #f0e2d0;
   font-size: 1.2rem;
   cursor: pointer;
-`;
-
-const Background = styled.div`
-  z-index: 100;
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  visibility: hidden;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-`;
-
-const ModalContainer = styled.div`
-  z-index: 500;
-  position: absolute;
-  bottom: 0px;
-  width: 100%;
-  max-width: 600px;
-  background-color: white;
-  border-top-left-radius: 30px;
-  border-top-right-radius: 30px;
-  height: calc(100% - 70px);
 `;
