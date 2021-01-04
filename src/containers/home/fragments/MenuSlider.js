@@ -18,16 +18,20 @@ const MenuSlider = ({ foodArray, gotMenuDetails }) => {
     pauseOnHover: true,
     arrows: false,
   };
-  const handleClick = (e) => {
-    console.log(e.target);
-    //gotMenuDetails(food);
-  };
 
   return (
     <MenuContainer {...settings}>
       {foodArray.map((food, index) => {
         return (
-          <MenuItemContainer key={index} onClick={handleClick}>
+          <MenuItemContainer
+            id="food"
+            key={index}
+            onClick={(e) => {
+              if (e.target.id === "food") {
+                gotMenuDetails(food);
+              }
+            }}
+          >
             {index === favorite.find((item) => item === index) ? (
               <FillHeartIcon
                 onClick={() =>
