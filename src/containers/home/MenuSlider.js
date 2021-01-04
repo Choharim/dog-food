@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import styled from "styled-components";
-import { AiOutlineHeart } from "react-icons/ai";
+import styled, { css } from "styled-components";
+import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 
 const MenuSlider = ({ foodArray }) => {
+  const [favorite, setFavorite] = useState([]);
+
   const settings = {
     dots: true,
     infinite: true,
@@ -16,13 +18,22 @@ const MenuSlider = ({ foodArray }) => {
     pauseOnHover: true,
     arrows: false,
   };
-
+  // const toggle;
+  console.log(favorite);
   return (
     <MenuContainer {...settings}>
       {foodArray.map((food, index) => {
         return (
           <MenuItemContainer key={index}>
-            <HeartIcon />
+            {index === favorite.find((item) => item === index) ? (
+              <FillHeartIcon
+                onClick={() =>
+                  setFavorite(favorite.filter((item) => item !== index))
+                }
+              />
+            ) : (
+              <HeartIcon onClick={() => setFavorite([...favorite, index])} />
+            )}
             <FoodPicture src={food.image} />
             <FoodName>{food.name}</FoodName>
             <FoodPrice>{food.price} 원</FoodPrice>
@@ -65,6 +76,14 @@ const HeartIcon = styled(AiOutlineHeart)`
   top: 15px;
   right: -55%;
   font-size: 2rem;
+`;
+
+const FillHeartIcon = styled(AiFillHeart)`
+  position: relative;
+  top: 15px;
+  right: -55%;
+  font-size: 2rem;
+  color: rgb(237, 73, 86);
 `;
 
 const FoodPicture = styled.img`
