@@ -7,6 +7,9 @@ import chickenTomatoSoup from "../../images/dish-6-6.jpg";
 import pumkinTea from "../../images/drink-1.jpg";
 import salmon from "../../images/snack-1.jpg";
 import carrot from "../../images/snack-2.jpg";
+import spinachTea from "../../images/drink-2.webp";
+import fishCookie from "../../images/snack-3.jpg";
+import potatoTea from "../../images/drink-3.jpg";
 
 export const Data = [
   { category: "dish", image: potatoPizza, name: "감자튀김 피자", price: 8000 },
@@ -47,6 +50,18 @@ export const Data = [
     price: 5000,
   },
   {
+    category: "drink",
+    image: potatoTea,
+    name: "감자 차",
+    price: 4000,
+  },
+  {
+    category: "drink",
+    image: spinachTea,
+    name: "시금치 차",
+    price: 5000,
+  },
+  {
     category: "snack",
     image: salmon,
     name: "연어 쿠키",
@@ -57,5 +72,11 @@ export const Data = [
     image: carrot,
     name: "당근 쿠키",
     price: 2000,
+  },
+  {
+    category: "snack",
+    image: fishCookie,
+    name: "북어연어 쿠키",
+    price: 3500,
   },
 ];
