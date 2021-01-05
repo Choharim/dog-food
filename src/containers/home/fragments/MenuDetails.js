@@ -58,7 +58,7 @@ const MenuDetails = ({
             onClick={() =>
               history.push({
                 pathname: "/order",
-                state: { showMenuDetails },
+                state: { showMenuDetails, count },
               })
             }
           >
