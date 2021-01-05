@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styled from "styled-components";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 
-const MenuSlider = ({ foodArray, setShowMenuDetails }) => {
-  const [favorite, setFavorite] = useState([]);
-
+const MenuSlider = ({
+  foodArray,
+  setShowMenuDetails,
+  favorite,
+  setFavorite,
+}) => {
   const settings = {
     dots: true,
     infinite: true,
@@ -32,14 +35,16 @@ const MenuSlider = ({ foodArray, setShowMenuDetails }) => {
               }
             }}
           >
-            {index === favorite.find((item) => item === index) ? (
+            {food.name === favorite.find((item) => item === food.name) ? (
               <FillHeartIcon
                 onClick={() =>
-                  setFavorite(favorite.filter((item) => item !== index))
+                  setFavorite(favorite.filter((item) => item !== food.name))
                 }
               />
             ) : (
-              <HeartIcon onClick={() => setFavorite([...favorite, index])} />
+              <HeartIcon
+                onClick={() => setFavorite([...favorite, food.name])}
+              />
             )}
             <FoodPicture image={food.image} />
             <FoodName>{food.name}</FoodName>

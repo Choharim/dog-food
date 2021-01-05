@@ -13,6 +13,9 @@ const Home = () => {
   const [isUser, setIsUser] = useState(false);
   const [foodArray, setFoodArray] = useState(Data);
   const [showMenuDetails, setShowMenuDetails] = useState({});
+  const [favorite, setFavorite] = useState(
+    JSON.parse(localStorage.getItem("favorite"))
+  );
 
   useEffect(() => {
     if (localStorage.getItem("currentUser")) {
@@ -21,6 +24,10 @@ const Home = () => {
       setIsUser(false);
     }
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem("favorite", JSON.stringify(favorite));
+  }, [favorite]);
 
   const logOut = () => {
     localStorage.removeItem("currentUser");
@@ -51,6 +58,8 @@ const Home = () => {
           <MenuSlider
             foodArray={foodArray}
             setShowMenuDetails={setShowMenuDetails}
+            favorite={favorite}
+            setFavorite={setFavorite}
           />
           <ApplyModal />
         </HomeContainer>
@@ -58,6 +67,8 @@ const Home = () => {
         <MenuDetails
           showMenuDetails={showMenuDetails}
           setShowMenuDetails={setShowMenuDetails}
+          favorite={favorite}
+          setFavorite={setFavorite}
         />
       )}
     </>

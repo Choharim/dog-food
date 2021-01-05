@@ -30,6 +30,15 @@ export const Data = [
     image2: potatoPizza2,
     name: "감자튀김 피자",
     price: 8000,
+    materials: [
+      "감자",
+      "토마토",
+      "파프리카",
+      "무염치즈",
+      "락토프리우유",
+      "계란",
+      "쌀가루",
+    ],
   },
   {
     category: "dish",
@@ -37,6 +46,7 @@ export const Data = [
     image2: sweetPotatoPuree2,
     name: "고구마 퓨레",
     price: 7000,
+    materials: ["고구마", "락토프리우유", "계란", "아마씨오일", "유산균"],
   },
   {
     category: "dish",
@@ -44,6 +54,14 @@ export const Data = [
     image2: pumkinSalad2,
     name: "단호박 블루베리 샐러드",
     price: 8500,
+    materials: [
+      "단호박",
+      "블루베리",
+      "양배추",
+      "리코타치즈",
+      "캐슈넛",
+      "양송이버섯",
+    ],
   },
   {
     category: "dish",
@@ -51,6 +69,15 @@ export const Data = [
     image2: plumSalad2,
     name: "자두 샐러드",
     price: 8000,
+    materials: [
+      "자두",
+      "파프리카",
+      "양배추",
+      "오이",
+      "브로콜리",
+      "콜리플라워",
+      "아마씨오일",
+    ],
   },
   {
     category: "dish",
@@ -58,6 +85,15 @@ export const Data = [
     image2: eggLasagna2,
     name: "달걀 라자냐",
     price: 11000,
+    materials: [
+      "계란",
+      "감자",
+      "토마토",
+      "파프리카",
+      "무염치즈",
+      "락토프리우유",
+      "양송이버섯",
+    ],
   },
   {
     category: "dish",
@@ -65,6 +101,14 @@ export const Data = [
     image2: chickenTomatoSoup2,
     name: "치킨 토마토 스프",
     price: 10000,
+    materials: [
+      "닭고기",
+      "토마토",
+      "파프리카",
+      "락토프리우유",
+      "양송이버섯",
+      "당근",
+    ],
   },
   {
     category: "drink",
