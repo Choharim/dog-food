@@ -72,7 +72,6 @@ const MenuContainer = styled(Slider)`
 
 const MenuItemContainer = styled.button`
   height: 380px;
-  margin: 0 20px;
   outline: none;
   border-radius: 10px;
   border: 2px solid;
