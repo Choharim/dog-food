@@ -104,13 +104,16 @@ const FoodPicture = styled.div`
   width: 210px;
   height: 210px;
   margin-bottom: 20px;
+  pointer-events: none;
 `;
 
 const FoodName = styled.p`
   font-size: 1.2rem;
   font-weight: bold;
+  pointer-events: none;
 `;
 const FoodPrice = styled.span`
   font-size: 1.2rem;
   font-weight: 300;
+  pointer-events: none;
 `;

@@ -50,6 +50,10 @@ const MenuDetails = ({
           <Count>{count}</Count>
           <PlusBtn onClick={() => setCount(count + 1)} />
         </CountContainer>
+        <PriceBuyContainer>
+          <Price>{count * showMenuDetails.price} 원</Price>
+          <BuyBtn>Buy Now</BuyBtn>
+        </PriceBuyContainer>
       </MenuDetailsCard>
     </MenuDetailsContainer>
   );
@@ -110,7 +114,7 @@ const MenuDetailsPicture = styled.div`
 
 const CountContainer = styled.div`
   width: 50%;
-  margin-top: 20px;
+  margin: 30px 0;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -129,5 +133,27 @@ const Count = styled.span`
 const PlusBtn = styled(AiOutlinePlusCircle)`
   padding: 5px;
   font-size: 2rem;
+  cursor: pointer;
+`;
+
+const PriceBuyContainer = styled.div`
+  width: 100%;
+  margin: 20px 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+`;
+
+const Price = styled.span`
+  padding: 20px 40px;
+  font-size: 1.8rem;
+`;
+
+const BuyBtn = styled.button`
+  outline: none;
+  border: none;
+  border-radius: 15px;
+  font-size: 1.8rem;
+  padding: 20px 40px;
   cursor: pointer;
 `;
