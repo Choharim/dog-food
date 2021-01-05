@@ -6,6 +6,7 @@ import {
   AiFillHeart,
 } from "react-icons/ai";
 import { AiOutlineMinusCircle, AiOutlinePlusCircle } from "react-icons/ai";
+import { useHistory } from "react-router-dom";
 
 const MenuDetails = ({
   showMenuDetails,
@@ -14,6 +15,7 @@ const MenuDetails = ({
   setFavorite,
 }) => {
   const [count, setCount] = useState(1);
+  let history = useHistory();
 
   return (
     <MenuDetailsContainer>
@@ -52,7 +54,16 @@ const MenuDetails = ({
         </CountContainer>
         <PriceBuyContainer>
           <Price>{count * showMenuDetails.price} 원</Price>
-          <BuyBtn>Buy Now</BuyBtn>
+          <BuyBtn
+            onClick={() =>
+              history.push({
+                pathname: "/order",
+                state: { showMenuDetails },
+              })
+            }
+          >
+            Buy Now
+          </BuyBtn>
         </PriceBuyContainer>
       </MenuDetailsCard>
     </MenuDetailsContainer>

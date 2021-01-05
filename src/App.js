@@ -5,6 +5,7 @@ import LogInPage from "./pages/logIn/index";
 import SignUpPage from "./pages/signUp/index";
 import HomePage from "./pages/home/index";
 import LecturePage from "./pages/lecture/index";
+import OrderPage from "./pages/order/index";
 
 function App() {
   return (
@@ -21,6 +22,9 @@ function App() {
       </Route>
       <Route path="/lecture" exact>
         <LecturePage />
+      </Route>
+      <Route path="/order" exact>
+        <OrderPage />
       </Route>
     </HashRouter>
   );
