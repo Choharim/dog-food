@@ -1,24 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useLocation } from "react-router";
 import styled from "styled-components";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { useHistory } from "react-router-dom";
-import OrderData from "./fragments/OrdeData";
+import OrderDetails from "./fragments/OrderDetails";
 
 const Order = () => {
   let history = useHistory();
   const location = useLocation();
-  const [orderData, setOrderData] = useState([]);
-
-  useEffect(() => {
-    const DataArray = [];
-    if (location.state !== undefined) {
-      for (let i = 1; i <= location.state.count; i++) {
-        DataArray.push({});
-      }
-    }
-    setOrderData(DataArray);
-  }, []);
 
   return (
     <>
@@ -29,9 +18,9 @@ const Order = () => {
           <FoodPicture showMenuDetails={location.state.showMenuDetails}>
             <BackBtn onClick={() => history.push("/")} />
           </FoodPicture>
-          <OrderData
+          <OrderDetails
             showMenuDetails={location.state.showMenuDetails}
-            orderData={orderData}
+            count={location.state.count}
           />
         </Container>
       )}

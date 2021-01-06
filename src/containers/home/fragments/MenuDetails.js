@@ -15,6 +15,7 @@ const MenuDetails = ({
   setFavorite,
 }) => {
   const [count, setCount] = useState(1);
+  const [step, setStep] = useState(1);
   let history = useHistory();
 
   return (
@@ -53,17 +54,35 @@ const MenuDetails = ({
           <PlusBtn onClick={() => setCount(count + 1)} />
         </CountContainer>
         <PriceBuyContainer>
-          <Price>{count * showMenuDetails.price} 원</Price>
-          <BuyBtn
-            onClick={() =>
-              history.push({
-                pathname: "/order",
-                state: { showMenuDetails, count },
-              })
-            }
-          >
-            Buy Now
-          </BuyBtn>
+          {step === 1 ? (
+            <>
+              <Price>{count * showMenuDetails.price} 원</Price>
+              <BuyBtn onClick={() => setStep(step + 1)}>Buy Now</BuyBtn>{" "}
+            </>
+          ) : (
+            <>
+              <BuyBtn
+                onClick={() =>
+                  history.push({
+                    pathname: "/order-userInfo",
+                    state: { showMenuDetails, count },
+                  })
+                }
+              >
+                Normal Order
+              </BuyBtn>
+              <BuyBtn
+                onClick={() =>
+                  history.push({
+                    pathname: "/order",
+                    state: { showMenuDetails, count },
+                  })
+                }
+              >
+                Details Order
+              </BuyBtn>
+            </>
+          )}
         </PriceBuyContainer>
       </MenuDetailsCard>
     </MenuDetailsContainer>

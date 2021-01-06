@@ -12,7 +12,7 @@ const Button = styled.button`
   outline: none;
   border: none;
   border: 1px solid black;
-  border-radius: 20px;
+  border-radius: 10px;
   background-color: transparent;
   display: flex;
   align-items: center;

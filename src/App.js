@@ -6,6 +6,7 @@ import SignUpPage from "./pages/signUp/index";
 import HomePage from "./pages/home/index";
 import LecturePage from "./pages/lecture/index";
 import OrderPage from "./pages/order/index";
+import OrderUserInfoPage from "./pages/orderUserInfo/index";
 
 function App() {
   return (
@@ -14,17 +15,20 @@ function App() {
       <Route path="/" exact>
         <HomePage />
       </Route>
-      <Route path="/signIn" exact>
+      <Route path="/signIn">
         <LogInPage />
       </Route>
-      <Route path="/signUp" exact>
+      <Route path="/signUp">
         <SignUpPage />
       </Route>
-      <Route path="/lecture" exact>
+      <Route path="/lecture">
         <LecturePage />
       </Route>
-      <Route path="/order" exact>
+      <Route path="/order">
         <OrderPage />
+      </Route>
+      <Route path="/order-userInfo">
+        <OrderUserInfoPage />
       </Route>
     </HashRouter>
   );
