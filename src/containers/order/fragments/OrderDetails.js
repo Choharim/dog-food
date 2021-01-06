@@ -1,14 +1,43 @@
 import React, { useState } from "react";
-import styled from "styled-components";
-import { IoIosArrowUp } from "react-icons/io";
-import ButtonComponet from "../../../components/Button";
+import {
+  OrderContainer,
+  OrderDataContainer,
+  OrderDataHead,
+  FoodName,
+  ToggleBtn,
+  Allergy,
+  AllergyTitle,
+  AllergyBtnContainer,
+  AllergyCheckBtn,
+  AllergyInput,
+  Ingredients,
+  IngredientsHead,
+  IngredientsTitle,
+  IngredientsCheckLabel,
+  IngredientsCheck,
+  IngredientsBtnContainer,
+  IngredientsBtn,
+  AddItem,
+  AddItemHead,
+  AddItemTitle,
+  AddItemCheckLabel,
+  AddItemCheck,
+  AddItemBtnContainer,
+  AddItemBtn,
+  ResetSaveContainer,
+  ResetBtn,
+  SaveBtn,
+  AddBtn,
+  OrderBtn,
+} from "./OrderDetailsStyle";
 
 const OrderDetails = ({ showMenuDetails, count }) => {
   const addItemArray = ["맛보기 랜덤", "맛보기 연어쿠키", "미니 양치츄"];
   const [detailOrder, setDetailOrder] = useState([{}]);
+  const [addCount, setAddCount] = useState(1);
 
   return (
-    <>
+    <OrderContainer>
       {detailOrder.map((food, index) => (
         <OrderDataContainer>
           <OrderDataHead>
@@ -61,169 +90,22 @@ const OrderDetails = ({ showMenuDetails, count }) => {
           </ResetSaveContainer>
         </OrderDataContainer>
       ))}
-    </>
+      {Object.keys(detailOrder[detailOrder.length - 1]).length !== 0 &&
+        addCount < count && (
+          <AddBtn
+            onClick={() => {
+              setDetailOrder(detailOrder.concat({}));
+              setAddCount(addCount + 1);
+            }}
+          >
+            추가하기(주문개수까지 가능)
+          </AddBtn>
+        )}
+      {Object.keys(detailOrder[detailOrder.length - 1]).length !== 0 && (
+        <OrderBtn>주문하기</OrderBtn>
+      )}
+    </OrderContainer>
   );
 };
 
 export default OrderDetails;
-
-const OrderDataContainer = styled.div`
-  width: 90%;
-  margin-bottom: 20px;
-`;
-
-const OrderDataHead = styled.div`
-  padding: 10px 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 2px solid black;
-`;
-
-const FoodName = styled.span`
-  font-size: 1.5rem;
-`;
-
-const ToggleBtn = styled(IoIosArrowUp)``;
-
-const Allergy = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-`;
-
-const AllergyTitle = styled.span`
-  margin: 10px 0;
-  font-size: 1.2rem;
-`;
-
-const AllergyBtnContainer = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-const AllergyCheckBtn = styled(ButtonComponet)`
-  width: 50%;
-  margin: 0 10px;
-  height: 40px;
-`;
-
-const AllergyInput = styled.input`
-  outline: none;
-  border: none;
-  border-bottom: 1px solid black;
-  width: calc(100% - 40px);
-  margin: 15px 0;
-  padding: 0 10px;
-  height: 30px;
-  font-size: 1.2rem;
-  align-self: center;
-`;
-
-const Ingredients = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-`;
-
-const IngredientsHead = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const IngredientsTitle = styled.span`
-  margin: 10px 0;
-  font-size: 1.2rem;
-`;
-
-const IngredientsCheckLabel = styled.div`
-  display: flex;
-  align-items: center;
-  font-size: 0.9rem;
-`;
-
-const IngredientsCheck = styled.input`
-  width: 20px;
-  height: 20px;
-  margin-left: 5px;
-`;
-
-const IngredientsBtnContainer = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-`;
-
-const IngredientsBtn = styled(ButtonComponet)`
-  width: 31%;
-  margin: 5px 0;
-  height: 40px;
-`;
-
-const AddItem = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-`;
-
-const AddItemHead = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const AddItemTitle = styled.span`
-  margin: 10px 0;
-  font-size: 1.2rem;
-`;
-
-const AddItemCheckLabel = styled.div`
-  display: flex;
-  align-items: center;
-  font-size: 0.9rem;
-`;
-
-const AddItemCheck = styled.input`
-  width: 20px;
-  height: 20px;
-  margin-left: 5px;
-`;
-
-const AddItemBtnContainer = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-`;
-
-const AddItemBtn = styled(ButtonComponet)`
-  width: 31%;
-  margin: 5px 0;
-  height: 40px;
-`;
-
-const ResetSaveContainer = styled.div`
-  margin-top: 25px;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-`;
-
-const ResetBtn = styled(ButtonComponet)`
-  width: 50%;
-  height: 50px;
-  margin-right: 5px;
-  border-radius: 30px;
-`;
-
-const SaveBtn = styled(ButtonComponet)`
-  width: 50%;
-  height: 50px;
-  border-radius: 30px;
-`;
