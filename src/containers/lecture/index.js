@@ -5,30 +5,41 @@ import { AiOutlineArrowLeft } from "react-icons/ai";
 import { IoIosArrowDropleft, IoIosArrowDropright } from "react-icons/io";
 import ButtonComponet from "../../components/Button";
 import cookingClass from "../../images/cookingClass.jpg";
+import { useHistory } from "react-router-dom";
 
 const Lecture = () => {
+  let history = useHistory();
   const [step, setStep] = useState(1);
+  const pageCount = Math.ceil(Data.length / 5);
+
+  console.log(pageCount, step);
   return (
     <LectureBg>
-      <BackBtn />
+      <BackBtn onClick={() => history.push("/")} />
       <LectureTitle>요리 수업</LectureTitle>
-      {Data.map(
-        (food, index) =>
-          step === 1 &&
-          index < 5 && (
-            <LectureCard key={index}>
-              <CardPicture image={food.image} />
-              <CardTextContainer>
-                <CardName>{food.name}</CardName>
-                <CardPrice>{food.price + 15000} 원</CardPrice>
-              </CardTextContainer>
-              <ApplyBtn>수업 신청</ApplyBtn>
-            </LectureCard>
+      {[...Array(pageCount)].map(
+        (n, page) =>
+          step === page + 1 &&
+          Data.map(
+            (food, index) =>
+              index < 5 * (page + 1) &&
+              index >= 5 * page && (
+                <LectureCard key={index}>
+                  <CardPicture image={food.image} />
+                  <CardTextContainer>
+                    <CardName>{food.name}</CardName>
+                    <CardPrice>{food.price + 15000} 원</CardPrice>
+                  </CardTextContainer>
+                  <ApplyBtn>수업 신청</ApplyBtn>
+                </LectureCard>
+              )
           )
       )}
       <PageMoveBtnContainer>
-        <PrevBtn />
-        <NextBtn />
+        <PrevBtn onClick={() => (step === 1 ? null : setStep(step - 1))} />
+        <NextBtn
+          onClick={() => (step === pageCount ? null : setStep(step + 1))}
+        />
       </PageMoveBtnContainer>
     </LectureBg>
   );
@@ -104,23 +115,24 @@ const ApplyBtn = styled(ButtonComponet)`
 
 const PageMoveBtnContainer = styled.div`
   width: 100%;
-  padding-top: 10px;
   display: flex;
   justify-content: space-evenly;
+  position: fixed;
+  bottom: 10px;
 `;
 
 const PrevBtn = styled(IoIosArrowDropleft)`
-  padding: 3px;
   color: white;
   background-color: rgba(0, 0, 0, 0.5);
   font-size: 2.5rem;
   border-radius: 50%;
+  cursor: pointer;
 `;
 
 const NextBtn = styled(IoIosArrowDropright)`
-  padding: 3px;
   color: white;
   background-color: rgba(0, 0, 0, 0.5);
   font-size: 2.5rem;
   border-radius: 50%;
+  cursor: pointer;
 `;
