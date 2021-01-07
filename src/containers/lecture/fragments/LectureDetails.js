@@ -13,7 +13,23 @@ const LectureDetails = ({ lecture, setLecture }) => {
     items: [],
     service: "",
   });
-  console.log(date);
+  const createObj = (e) => {
+    setDataObj({ ...dataObj, [e.target.name]: e.target.value });
+  };
+  const handleObj = (e) => {
+    let check;
+    if ([...dataObj.items].some((item) => item === e.target.value)) {
+      check = [...dataObj.items].filter((item) => item !== e.target.value);
+    } else {
+      check = [...dataObj.items].concat([e.target.value]);
+    }
+    setDataObj({
+      ...dataObj,
+      [e.target.name]: check,
+    });
+  };
+
+  console.log(dataObj);
 
   return (
     <DetailsContainer image={lecture.image2}>
@@ -26,17 +42,59 @@ const LectureDetails = ({ lecture, setLecture }) => {
       <Container>
         <Title>수업 시간</Title>
         <TimeContainer>
-          <ChoiceBtn>오전 10:30 ~ 12:30</ChoiceBtn>
-          <ChoiceBtn>오후 1:30 ~ 3:30</ChoiceBtn>
-          <ChoiceBtn>오후 4:00 ~ 6:00</ChoiceBtn>
+          <ChoiceBtn
+            color={dataObj.time === "오전10:30"}
+            onClick={createObj}
+            name="time"
+            value="오전10:30"
+          >
+            오전 10:30 ~ 12:30
+          </ChoiceBtn>
+          <ChoiceBtn
+            color={dataObj.time === "오후1:30"}
+            onClick={createObj}
+            name="time"
+            value="오후1:30"
+          >
+            오후 1:30 ~ 3:30
+          </ChoiceBtn>
+          <ChoiceBtn
+            color={dataObj.time === "오후4:00"}
+            onClick={createObj}
+            name="time"
+            value="오후4:00"
+          >
+            오후 4:00 ~ 6:00
+          </ChoiceBtn>
         </TimeContainer>
       </Container>
       <Container>
         <Title>무료 서비스</Title>
         <ServiceContainer>
-          <ChoiceBtn>앞치마</ChoiceBtn>
-          <ChoiceBtn>포장 그릇</ChoiceBtn>
-          <ChoiceBtn>강아지 방석</ChoiceBtn>
+          <ChoiceBtn
+            color={dataObj.items.find((item) => item === "apron")}
+            onClick={handleObj}
+            name="items"
+            value="apron"
+          >
+            앞치마
+          </ChoiceBtn>
+          <ChoiceBtn
+            color={dataObj.items.find((item) => item === "package")}
+            onClick={handleObj}
+            name="items"
+            value="package"
+          >
+            포장 그릇
+          </ChoiceBtn>
+          <ChoiceBtn
+            color={dataObj.items.find((item) => item === "cushion")}
+            onClick={handleObj}
+            name="items"
+            value="cushion"
+          >
+            강아지 방석
+          </ChoiceBtn>
           <ChoiceBtn>그 외</ChoiceBtn>
         </ServiceContainer>
       </Container>
@@ -110,10 +168,9 @@ const TimeContainer = styled.div`
 `;
 
 const ChoiceBtn = styled(ButtonComponet)`
-  background-color: white;
-  border: none;
-  padding: 15px;
+  color: white;
   width: 30%;
+  padding: 10px;
   margin-bottom: 10px;
 `;
 

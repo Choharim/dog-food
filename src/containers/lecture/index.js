@@ -116,9 +116,9 @@ const CardPrice = styled.span`
 `;
 
 const ApplyBtn = styled(ButtonComponet)`
+  margin-right: 10px;
   width: 70px;
   height: 70px;
-  margin-right: 10px;
   border-radius: 50%;
   font-size: 1.2rem;
 `;

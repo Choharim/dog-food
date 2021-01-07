@@ -21,6 +21,6 @@ const Button = styled.button`
   ${(props) =>
     props.color &&
     css`
-      background-color: #f0e2d0;
+      background-color: black;
     `}
 `;
