@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import Calendar from "react-calendar";
@@ -8,12 +8,20 @@ import ButtonComponet from "../../../components/Button";
 const LectureDetails = ({ lecture, setLecture }) => {
   const [date, setDate] = useState(new Date());
   const [dataObj, setDataObj] = useState({
+    lecture: lecture.name,
     date: "",
     time: "",
     items: [],
     itemsText: "",
     service: "",
   });
+
+  useEffect(() => {
+    const lecture_LS = JSON.parse(localStorage.getItem("lecture"));
+    if (lecture_LS && lecture_LS.lecture === lecture.name) {
+      setDataObj(lecture_LS);
+    }
+  }, []);
 
   const createObj = (e) => {
     setDataObj({ ...dataObj, [e.target.name]: e.target.value });
