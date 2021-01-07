@@ -26,11 +26,29 @@ const LectureDetails = ({ lecture, setLecture }) => {
       <Container>
         <Title>수업 시간</Title>
         <TimeContainer>
-          <TimeBtn>오전 10:30 ~ 12:30</TimeBtn>
-          <TimeBtn>오후 1:30 ~ 3:30</TimeBtn>
-          <TimeBtn>오후 4:00 ~ 6:00</TimeBtn>
+          <ChoiceBtn>오전 10:30 ~ 12:30</ChoiceBtn>
+          <ChoiceBtn>오후 1:30 ~ 3:30</ChoiceBtn>
+          <ChoiceBtn>오후 4:00 ~ 6:00</ChoiceBtn>
         </TimeContainer>
       </Container>
+      <Container>
+        <Title>무료 서비스</Title>
+        <ServiceContainer>
+          <ChoiceBtn>앞치마</ChoiceBtn>
+          <ChoiceBtn>포장 그릇</ChoiceBtn>
+          <ChoiceBtn>강아지 방석</ChoiceBtn>
+          <ChoiceBtn>그 외</ChoiceBtn>
+        </ServiceContainer>
+      </Container>
+      <Container>
+        <Title>수업 후</Title>
+        <ServiceContainer>
+          <ChoiceBtn>소모임 파티</ChoiceBtn>
+          <ChoiceBtn>개인 파티</ChoiceBtn>
+          <ChoiceBtn>포장</ChoiceBtn>
+        </ServiceContainer>
+      </Container>
+      <ApplyBtn>수업 신청</ApplyBtn>
     </DetailsContainer>
   );
 };
@@ -38,6 +56,7 @@ const LectureDetails = ({ lecture, setLecture }) => {
 export default LectureDetails;
 
 const DetailsContainer = styled.div`
+  padding-bottom: 100px;
   width: 100%;
   background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
     url(${(props) => props.image});
@@ -90,8 +109,24 @@ const TimeContainer = styled.div`
   justify-content: space-between;
 `;
 
-const TimeBtn = styled(ButtonComponet)`
+const ChoiceBtn = styled(ButtonComponet)`
   background-color: white;
   border: none;
   padding: 15px;
+  width: 30%;
+  margin-bottom: 10px;
+`;
+
+const ServiceContainer = styled(TimeContainer)`
+  flex-wrap: wrap;
+`;
+
+const ApplyBtn = styled(ButtonComponet)`
+  position: fixed;
+  bottom: 0;
+  height: 60px;
+  width: 100%;
+  max-width: 600px;
+  background-color: white;
+  border-radius: 0;
 `;
