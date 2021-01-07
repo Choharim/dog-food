@@ -4,9 +4,9 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import ButtonComponet from "../../../components/Button";
+import SuccessModal from "../fragments/SuccessModal";
 
 const LectureDetails = ({ lecture, setLecture }) => {
-  const [date, setDate] = useState(new Date());
   const [dataObj, setDataObj] = useState({
     lecture: lecture.name,
     date: "",
@@ -15,6 +15,7 @@ const LectureDetails = ({ lecture, setLecture }) => {
     itemsText: "",
     service: "",
   });
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     const lecture_LS = JSON.parse(localStorage.getItem("lecture"));
@@ -65,6 +66,7 @@ const LectureDetails = ({ lecture, setLecture }) => {
         return;
       } else {
         localStorage.setItem("lecture", JSON.stringify(dataObj));
+        setShowModal(true);
       }
     } else {
       alert("날짜, 시간, 수업 후를 모두 작성해주세요!");
@@ -72,124 +74,128 @@ const LectureDetails = ({ lecture, setLecture }) => {
     }
   };
 
-  console.log(dataObj);
-
   return (
-    <DetailsContainer image={lecture.image2}>
-      <BackBtn onClick={() => setLecture({})} />
-      <DetailsTitle>{lecture.name} Class</DetailsTitle>
-      <Container>
-        <Title>수업 날짜</Title>
-        <CalendarBox
-          onChange={() => setDataObj({ ...dataObj, date: date })}
-          date={date}
-        />
-      </Container>
-      <Container>
-        <Title>수업 시간</Title>
-        <TimeContainer>
-          <ChoiceBtn
-            color={dataObj.time === "AM 10:30"}
-            onClick={createObj}
-            name="time"
-            value="AM 10:30"
-          >
-            오전 10:30 ~ 12:30
-          </ChoiceBtn>
-          <ChoiceBtn
-            color={dataObj.time === "PM 1:30"}
-            onClick={createObj}
-            name="time"
-            value="PM 1:30"
-          >
-            오후 1:30 ~ 3:30
-          </ChoiceBtn>
-          <ChoiceBtn
-            color={dataObj.time === "PM 4:00"}
-            onClick={createObj}
-            name="time"
-            value="PM 4:00"
-          >
-            오후 4:00 ~ 6:00
-          </ChoiceBtn>
-        </TimeContainer>
-      </Container>
-      <Container>
-        <Title>대신 준비해드려요</Title>
-        <ServiceContainer>
-          <ChoiceBtn
-            color={dataObj.items.find((item) => item === "apron")}
-            onClick={handleObj}
-            name="items"
-            value="apron"
-          >
-            앞치마
-          </ChoiceBtn>
-          <ChoiceBtn
-            color={dataObj.items.find((item) => item === "package")}
-            onClick={handleObj}
-            name="items"
-            value="package"
-          >
-            포장 그릇
-          </ChoiceBtn>
-          <ChoiceBtn
-            color={dataObj.items.find((item) => item === "cushion")}
-            onClick={handleObj}
-            name="items"
-            value="cushion"
-          >
-            강아지 방석
-          </ChoiceBtn>
-          <ChoiceBtn
-            color={dataObj.items.find((item) => item === "etc")}
-            onClick={handleObj}
-            name="items"
-            value="etc"
-          >
-            그 외
-          </ChoiceBtn>
-          {dataObj.items.some((item) => item === "etc") && (
-            <EtcText
-              onChange={handleEtc}
-              value={dataObj.itemsText}
-              wrap="hard"
-              placeholder="추가로 필요한 준비물을 적어주세요."
+    <>
+      {showModal === false ? (
+        <DetailsContainer image={lecture.image2}>
+          <BackBtn onClick={() => setLecture({})} />
+          <DetailsTitle>{lecture.name} Class</DetailsTitle>
+          <Container>
+            <Title>수업 날짜</Title>
+            <CalendarBox
+              onChange={(data) => setDataObj({ ...dataObj, date: data })}
+              value={dataObj.date}
             />
-          )}
-        </ServiceContainer>
-      </Container>
-      <Container>
-        <Title>수업 후</Title>
-        <ServiceContainer>
-          <ChoiceBtn
-            color={dataObj.service === "party"}
-            onClick={createObj}
-            name="service"
-            value="party"
-          >
-            소모임 파티
-          </ChoiceBtn>
-          <ChoiceBtn
-            color={dataObj.service === "alone"}
-            onClick={createObj}
-            name="service"
-            value="alone"
-          >
-            개인
-          </ChoiceBtn>
-          <ChoiceBtn
-            color={dataObj.service === "togo"}
-            onClick={createObj}
-            name="service"
-            value="togo"
-          >
-            포장
-          </ChoiceBtn>
-        </ServiceContainer>
-      </Container>
-      <ApplyBtn onClick={handleApplication}>수업 신청</ApplyBtn>
-    </DetailsContainer>
+          </Container>
+          <Container>
+            <Title>수업 시간</Title>
+            <TimeContainer>
+              <ChoiceBtn
+                color={dataObj.time === "AM 10:30"}
+                onClick={createObj}
+                name="time"
+                value="AM 10:30"
+              >
+                오전 10:30 ~ 12:30
+              </ChoiceBtn>
+              <ChoiceBtn
+                color={dataObj.time === "PM 1:30"}
+                onClick={createObj}
+                name="time"
+                value="PM 1:30"
+              >
+                오후 1:30 ~ 3:30
+              </ChoiceBtn>
+              <ChoiceBtn
+                color={dataObj.time === "PM 4:00"}
+                onClick={createObj}
+                name="time"
+                value="PM 4:00"
+              >
+                오후 4:00 ~ 6:00
+              </ChoiceBtn>
+            </TimeContainer>
+          </Container>
+          <Container>
+            <Title>대신 준비해드려요</Title>
+            <ServiceContainer>
+              <ChoiceBtn
+                color={dataObj.items.find((item) => item === "apron")}
+                onClick={handleObj}
+                name="items"
+                value="apron"
+              >
+                앞치마
+              </ChoiceBtn>
+              <ChoiceBtn
+                color={dataObj.items.find((item) => item === "package")}
+                onClick={handleObj}
+                name="items"
+                value="package"
+              >
+                포장 그릇
+              </ChoiceBtn>
+              <ChoiceBtn
+                color={dataObj.items.find((item) => item === "cushion")}
+                onClick={handleObj}
+                name="items"
+                value="cushion"
+              >
+                강아지 방석
+              </ChoiceBtn>
+              <ChoiceBtn
+                color={dataObj.items.find((item) => item === "etc")}
+                onClick={handleObj}
+                name="items"
+                value="etc"
+              >
+                그 외
+              </ChoiceBtn>
+              {dataObj.items.some((item) => item === "etc") && (
+                <EtcText
+                  onChange={handleEtc}
+                  value={dataObj.itemsText}
+                  wrap="hard"
+                  placeholder="추가로 필요한 준비물을 적어주세요."
+                />
+              )}
+            </ServiceContainer>
+          </Container>
+          <Container>
+            <Title>수업 후</Title>
+            <ServiceContainer>
+              <ChoiceBtn
+                color={dataObj.service === "party"}
+                onClick={createObj}
+                name="service"
+                value="party"
+              >
+                소모임 파티
+              </ChoiceBtn>
+              <ChoiceBtn
+                color={dataObj.service === "alone"}
+                onClick={createObj}
+                name="service"
+                value="alone"
+              >
+                개인
+              </ChoiceBtn>
+              <ChoiceBtn
+                color={dataObj.service === "togo"}
+                onClick={createObj}
+                name="service"
+                value="togo"
+              >
+                포장
+              </ChoiceBtn>
+            </ServiceContainer>
+          </Container>
+          <ApplyBtn onClick={handleApplication}>수업 신청</ApplyBtn>
+        </DetailsContainer>
+      ) : (
+        <SuccessModal lecture={lecture} setLecture={setLecture} />
+      )}
+    </>
   );
 };
 

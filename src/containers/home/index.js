@@ -13,9 +13,7 @@ const Home = () => {
   const [isUser, setIsUser] = useState(false);
   const [foodArray, setFoodArray] = useState(Data);
   const [showMenuDetails, setShowMenuDetails] = useState({});
-  const [favorite, setFavorite] = useState(
-    JSON.parse(localStorage.getItem("favorite"))
-  );
+  const [favorite, setFavorite] = useState([]);
 
   useEffect(() => {
     if (localStorage.getItem("currentUser")) {
@@ -23,6 +21,10 @@ const Home = () => {
     } else {
       setIsUser(false);
     }
+  }, []);
+
+  useEffect(() => {
+    setFavorite(JSON.parse(localStorage.getItem("favorite")));
   }, []);
 
   useEffect(() => {
