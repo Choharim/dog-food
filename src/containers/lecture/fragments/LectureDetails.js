@@ -11,22 +11,41 @@ const LectureDetails = ({ lecture, setLecture }) => {
     data: "",
     time: "",
     items: [],
+    itemsText: "",
     service: "",
   });
+
   const createObj = (e) => {
     setDataObj({ ...dataObj, [e.target.name]: e.target.value });
   };
   const handleObj = (e) => {
     let check;
-    if ([...dataObj.items].some((item) => item === e.target.value)) {
-      check = [...dataObj.items].filter((item) => item !== e.target.value);
+    if (dataObj.items.some((item) => item === e.target.value)) {
+      check = dataObj.items.filter((item) => item !== e.target.value);
+      if (e.target.value === "etc") {
+        setDataObj({
+          ...dataObj,
+          [e.target.name]: check,
+          itemsText: "",
+        });
+      } else {
+        setDataObj({
+          ...dataObj,
+          [e.target.name]: check,
+        });
+      }
     } else {
-      check = [...dataObj.items].concat([e.target.value]);
+      check = dataObj.items.concat([e.target.value]);
+      setDataObj({
+        ...dataObj,
+        [e.target.name]: check,
+      });
     }
-    setDataObj({
-      ...dataObj,
-      [e.target.name]: check,
-    });
+  };
+  const handleEtc = (e) => {
+    if (dataObj.items.some((item) => item === "etc")) {
+      setDataObj({ ...dataObj, itemsText: e.target.value });
+    }
   };
 
   console.log(dataObj);
@@ -95,7 +114,22 @@ const LectureDetails = ({ lecture, setLecture }) => {
           >
             강아지 방석
           </ChoiceBtn>
-          <ChoiceBtn>그 외</ChoiceBtn>
+          <ChoiceBtn
+            color={dataObj.items.find((item) => item === "etc")}
+            onClick={handleObj}
+            name="items"
+            value="etc"
+          >
+            그 외
+          </ChoiceBtn>
+          {dataObj.items.some((item) => item === "etc") && (
+            <EtcText
+              onChange={handleEtc}
+              value={dataObj.itemsText}
+              wrap="hard"
+              placeholder="추가로 필요한 준비물을 적어주세요."
+            />
+          )}
         </ServiceContainer>
       </Container>
       <Container>
@@ -172,6 +206,11 @@ const ChoiceBtn = styled(ButtonComponet)`
   width: 30%;
   padding: 10px;
   margin-bottom: 10px;
+`;
+
+const EtcText = styled.textarea`
+  width: 100%;
+  padding: 10px 5px;
 `;
 
 const ServiceContainer = styled(TimeContainer)`
