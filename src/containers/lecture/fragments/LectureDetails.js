@@ -8,7 +8,7 @@ import ButtonComponet from "../../../components/Button";
 const LectureDetails = ({ lecture, setLecture }) => {
   const [date, setDate] = useState(new Date());
   const [dataObj, setDataObj] = useState({
-    data: "",
+    date: "",
     time: "",
     items: [],
     itemsText: "",
@@ -56,32 +56,35 @@ const LectureDetails = ({ lecture, setLecture }) => {
       <DetailsTitle>{lecture.name} Class</DetailsTitle>
       <Container>
         <Title>수업 날짜</Title>
-        <CalendarBox onChange={setDate} date={date} />
+        <CalendarBox
+          onChange={() => setDataObj({ ...dataObj, date: date })}
+          date={date}
+        />
       </Container>
       <Container>
         <Title>수업 시간</Title>
         <TimeContainer>
           <ChoiceBtn
-            color={dataObj.time === "오전10:30"}
+            color={dataObj.time === "AM 10:30"}
             onClick={createObj}
             name="time"
-            value="오전10:30"
+            value="AM 10:30"
           >
             오전 10:30 ~ 12:30
           </ChoiceBtn>
           <ChoiceBtn
-            color={dataObj.time === "오후1:30"}
+            color={dataObj.time === "PM 1:30"}
             onClick={createObj}
             name="time"
-            value="오후1:30"
+            value="PM 1:30"
           >
             오후 1:30 ~ 3:30
           </ChoiceBtn>
           <ChoiceBtn
-            color={dataObj.time === "오후4:00"}
+            color={dataObj.time === "PM 4:00"}
             onClick={createObj}
             name="time"
-            value="오후4:00"
+            value="PM 4:00"
           >
             오후 4:00 ~ 6:00
           </ChoiceBtn>
@@ -135,9 +138,30 @@ const LectureDetails = ({ lecture, setLecture }) => {
       <Container>
         <Title>수업 후</Title>
         <ServiceContainer>
-          <ChoiceBtn>소모임 파티</ChoiceBtn>
-          <ChoiceBtn>개인 파티</ChoiceBtn>
-          <ChoiceBtn>포장</ChoiceBtn>
+          <ChoiceBtn
+            color={dataObj.service === "party"}
+            onClick={createObj}
+            name="service"
+            value="party"
+          >
+            소모임 파티
+          </ChoiceBtn>
+          <ChoiceBtn
+            color={dataObj.service === "alone"}
+            onClick={createObj}
+            name="service"
+            value="alone"
+          >
+            개인
+          </ChoiceBtn>
+          <ChoiceBtn
+            color={dataObj.service === "togo"}
+            onClick={createObj}
+            name="service"
+            value="togo"
+          >
+            포장
+          </ChoiceBtn>
         </ServiceContainer>
       </Container>
       <ApplyBtn>수업 신청</ApplyBtn>
