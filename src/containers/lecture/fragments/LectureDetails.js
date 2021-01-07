@@ -47,6 +47,22 @@ const LectureDetails = ({ lecture, setLecture }) => {
       setDataObj({ ...dataObj, itemsText: e.target.value });
     }
   };
+  const handleApplication = () => {
+    if (dataObj.date !== "" && dataObj.time !== "" && dataObj.service !== "") {
+      if (
+        dataObj.items.some((item) => item === "etc" && dataObj.itemsText === "")
+      ) {
+        alert("추가 물품을 적어주세요!");
+        localStorage.removeItem("lecture");
+        return;
+      } else {
+        localStorage.setItem("lecture", JSON.stringify(dataObj));
+      }
+    } else {
+      alert("날짜, 시간, 수업 후를 모두 작성해주세요!");
+      localStorage.removeItem("lecture");
+    }
+  };
 
   console.log(dataObj);
 
@@ -91,7 +107,7 @@ const LectureDetails = ({ lecture, setLecture }) => {
         </TimeContainer>
       </Container>
       <Container>
-        <Title>무료 서비스</Title>
+        <Title>대신 준비해드려요</Title>
         <ServiceContainer>
           <ChoiceBtn
             color={dataObj.items.find((item) => item === "apron")}
@@ -164,7 +180,7 @@ const LectureDetails = ({ lecture, setLecture }) => {
           </ChoiceBtn>
         </ServiceContainer>
       </Container>
-      <ApplyBtn>수업 신청</ApplyBtn>
+      <ApplyBtn onClick={handleApplication}>수업 신청</ApplyBtn>
     </DetailsContainer>
   );
 };
@@ -213,7 +229,6 @@ const Title = styled.span`
 `;
 
 const CalendarBox = styled(Calendar)`
-  width: 100%;
   padding: 10px 10px 25px 10px;
   border-radius: 20px;
   font-size: 1.5rem;
