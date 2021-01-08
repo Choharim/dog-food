@@ -5,13 +5,18 @@ import { useHistory } from "react-router-dom";
 
 const SuccessOrder = ({ setStep, orderInfo }) => {
   let history = useHistory();
+
+  const confirm = () => {
+    localStorage.setItem("order", JSON.stringify(orderInfo));
+    history.push("/");
+  };
   return (
     <>
       <BackBtn onClick={() => setStep((pre) => pre - 1)} />
       <Container>
         <SuccessTitle>{orderInfo.menu}</SuccessTitle>
         <SuccessTitle>주문이 완료되었습니다.</SuccessTitle>
-        <Confirm onClick={() => history.push("/")}>확인</Confirm>
+        <Confirm onClick={confirm}>확인</Confirm>
       </Container>
     </>
   );

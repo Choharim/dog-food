@@ -65,7 +65,18 @@ const OrderUserInfo = () => {
   const handleChange = (input) => (e) => {
     setOrderInfo({ ...orderInfo, [input]: e.target.value });
   };
-
+  const checkValidation = () => {
+    if (
+      orderInfo.name !== "" &&
+      orderInfo.phone !== "" &&
+      orderInfo.address !== "" &&
+      orderInfo.extraAddress !== ""
+    ) {
+      setStep(step + 1);
+    } else {
+      alert("이름,전화번호,주소를 모두 적어주세요!");
+    }
+  };
   return (
     <>
       {location.state === undefined ? (
@@ -100,10 +111,7 @@ const OrderUserInfo = () => {
                 />
                 <div style={{ display: "flex" }}>
                   <AddressInput
-                    defaultValue={
-                      orderInfo.address !== "" ? orderInfo.address : ""
-                    }
-                    onChange={handleChange("address")}
+                    value={orderInfo.address !== "" ? orderInfo.address : ""}
                   />
                   <AddressBtn onClick={() => setSearchAddress(true)}>
                     주소 검색
@@ -116,7 +124,7 @@ const OrderUserInfo = () => {
                   </DaumPostContainer>
                 )}
                 <AddressInput
-                  defaultValue={
+                  value={
                     orderInfo.extraAddress !== "" ? orderInfo.extraAddress : ""
                   }
                   onChange={handleChange("extraAddress")}
@@ -129,7 +137,7 @@ const OrderUserInfo = () => {
                   {orderInfo.price * orderInfo.count} 원
                 </MenuPice>
               </MenuContainer>
-              <OrderBtn onClick={() => setStep(step + 1)}>주문하기</OrderBtn>
+              <OrderBtn onClick={checkValidation}>주문하기</OrderBtn>
             </Container>
           ) : (
             <SuccessOrder setStep={setStep} orderInfo={orderInfo} />
