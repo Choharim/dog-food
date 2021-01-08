@@ -113,6 +113,14 @@ const OrderUserInfo = () => {
                   }
                 />
               </InputContainer>
+              <MenuContainer>
+                <Menu>{orderInfo.menu}</Menu>
+                <MenuPice>
+                  {orderInfo.price} 원 * {orderInfo.count} 개 ={" "}
+                  {orderInfo.price * orderInfo.count} 원
+                </MenuPice>
+              </MenuContainer>
+              <OrderBtn onClick={() => setStep(step + 1)}>주문하기</OrderBtn>
             </Container>
           ) : (
             <SuccessOrder setStep={setStep} />
@@ -134,11 +142,11 @@ const Container = styled.div`
 
 const Title = styled.span`
   font-size: 1.5rem;
-  margin-top: 50px;
+  margin-top: 100px;
 `;
 
 const InputContainer = styled.form`
-  margin-top: 50px;
+  margin-top: 70px;
   width: 80%;
   display: flex;
   flex-direction: column;
@@ -183,4 +191,26 @@ const ZoneCodeDelBtn = styled(TiDelete)`
   right: -5px;
   top: -5px;
   z-index: 1;
+`;
+
+const MenuContainer = styled.div`
+  width: 80%;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+`;
+
+const Menu = styled.span`
+  font-size: 2rem;
+`;
+
+const MenuPice = styled.span`
+  font-size: 1.5rem;
+  margin-top: 10px;
+`;
+
+const OrderBtn = styled.button`
+  margin-top: 100px;
+  width: 80%;
+  font-size: 2rem;
 `;
