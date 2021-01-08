@@ -25,11 +25,10 @@ import {
   AddItemBtnContainer,
   AddItemBtn,
   ResetSaveContainer,
-  ResetBtn,
-  SaveBtn,
   AddBtn,
   OrderBtn,
 } from "./OrderDetailsStyle";
+import { useHistory } from "react-router-dom";
 
 const OrderDetails = ({ showMenuDetails, count }) => {
   const addItemArray = ["맛보기 랜덤", "맛보기 연어쿠키", "미니 양치츄"];
@@ -37,6 +36,7 @@ const OrderDetails = ({ showMenuDetails, count }) => {
     { allergy: "", allergyText: "", except: [], add: [] },
   ]);
   const [addCount, setAddCount] = useState(1);
+  let history = useHistory();
 
   const handleChoice = (input, index) => (e) => {
     let copy = detailOrder.slice();
@@ -91,6 +91,7 @@ const OrderDetails = ({ showMenuDetails, count }) => {
     }
     setDetailOrder(copy);
   };
+
   const handleValidaion = () => {
     if (
       detailOrder.every(
@@ -107,6 +108,7 @@ const OrderDetails = ({ showMenuDetails, count }) => {
       } else {
         localStorage.setItem("orderDetails", JSON.stringify(detailOrder));
         alert("수업 신청이 완료되었습니다.");
+        history.push("/");
       }
     } else {
       alert("알러지 유무, 제외할 재료, 추가할 재료를 모두 선택해주세요!");
@@ -216,10 +218,7 @@ const OrderDetails = ({ showMenuDetails, count }) => {
               ))}
             </AddItemBtnContainer>
           </AddItem>
-          <ResetSaveContainer>
-            <ResetBtn>삭제</ResetBtn>
-            <SaveBtn>임시 저장</SaveBtn>
-          </ResetSaveContainer>
+          <ResetSaveContainer></ResetSaveContainer>
         </OrderDataContainer>
       ))}
       {addCount < count && (

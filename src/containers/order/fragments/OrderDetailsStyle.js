@@ -173,19 +173,6 @@ export const ResetSaveContainer = styled.div`
   justify-content: space-between;
 `;
 
-export const ResetBtn = styled(ButtonComponet)`
-  width: 50%;
-  height: 50px;
-  margin-right: 5px;
-  border-radius: 30px;
-`;
-
-export const SaveBtn = styled(ButtonComponet)`
-  width: 50%;
-  height: 50px;
-  border-radius: 30px;
-`;
-
 export const AddBtn = styled(ButtonComponet)`
   width: 90%;
   font-size: 1.2rem;
