@@ -5,6 +5,7 @@ import SuccessOrder from "./fragments/SuccessOrder";
 import styled from "styled-components";
 import DaumPostcode from "react-daum-postcode";
 import { TiDelete } from "react-icons/ti";
+import { HiOutlineX } from "react-icons/hi";
 
 const OrderUserInfo = () => {
   let history = useHistory();
@@ -61,6 +62,9 @@ const OrderUserInfo = () => {
   };
 
   console.log(orderInfo, "info");
+  const handleChange = (input) => (e) => {
+    setOrderInfo({ ...orderInfo, [input]: e.target.value });
+  };
 
   return (
     <>
@@ -70,6 +74,7 @@ const OrderUserInfo = () => {
         <>
           {step === 1 ? (
             <Container>
+              <CancleBtn onClick={() => history.push("/")} />
               <Title>{orderInfo.menu} 주문하기</Title>
               <InputContainer>
                 <InputLabel>이름</InputLabel>
@@ -77,6 +82,7 @@ const OrderUserInfo = () => {
                   defaultValue={orderInfo.name !== "" ? orderInfo.name : ""}
                   type="text"
                   placeholder="이름을 적어주세요"
+                  onChange={handleChange("name")}
                 />
                 <InputLabel>전화번호</InputLabel>
                 <InputBox
@@ -84,6 +90,7 @@ const OrderUserInfo = () => {
                   type="tel"
                   pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
                   placeholder="ex)010-1234-5678"
+                  onChange={handleChange("phone")}
                 />
                 <InputLabel>주소</InputLabel>
                 <ZoncodeInput
@@ -96,6 +103,7 @@ const OrderUserInfo = () => {
                     defaultValue={
                       orderInfo.address !== "" ? orderInfo.address : ""
                     }
+                    onChange={handleChange("address")}
                   />
                   <AddressBtn onClick={() => setSearchAddress(true)}>
                     주소 검색
@@ -111,6 +119,7 @@ const OrderUserInfo = () => {
                   defaultValue={
                     orderInfo.extraAddress !== "" ? orderInfo.extraAddress : ""
                   }
+                  onChange={handleChange("extraAddress")}
                 />
               </InputContainer>
               <MenuContainer>
@@ -140,9 +149,17 @@ const Container = styled.div`
   align-items: center;
 `;
 
+const CancleBtn = styled(HiOutlineX)`
+  align-self: flex-end;
+  margin: 5px 5px 0;
+  padding: 10px;
+  font-size: 2rem;
+  cursor: pointer;
+`;
+
 const Title = styled.span`
   font-size: 1.5rem;
-  margin-top: 100px;
+  margin-top: 80px;
 `;
 
 const InputContainer = styled.form`
