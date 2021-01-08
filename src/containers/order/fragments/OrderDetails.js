@@ -91,6 +91,27 @@ const OrderDetails = ({ showMenuDetails, count }) => {
     }
     setDetailOrder(copy);
   };
+  const handleValidaion = () => {
+    if (
+      detailOrder.every(
+        (obj) => obj.allergy !== "" && obj.except.length && obj.add.length
+      )
+    ) {
+      if (
+        detailOrder.some(
+          (obj) => obj.allergy === "yes" && obj.allergyText === ""
+        )
+      ) {
+        alert("알러지 종류를 적어주세요!");
+        return;
+      } else {
+        localStorage.setItem("orderDetails", JSON.stringify(detailOrder));
+        alert("수업 신청이 완료되었습니다.");
+      }
+    } else {
+      alert("알러지 유무, 제외할 재료, 추가할 재료를 모두 선택해주세요!");
+    }
+  };
 
   console.log(detailOrder);
   return (
@@ -141,7 +162,7 @@ const OrderDetails = ({ showMenuDetails, count }) => {
                     checked={detailOrder[index].except.some(
                       (element) => element === "no"
                     )}
-                    onClick={handleExcept(index)}
+                    onChange={handleExcept(index)}
                     type="checkbox"
                   />
                 </IngredientsCheckLabel>
@@ -171,7 +192,7 @@ const OrderDetails = ({ showMenuDetails, count }) => {
                 <AddItemCheck
                   value="no"
                   name="add"
-                  onClick={handleAdd(index)}
+                  onChange={handleAdd(index)}
                   checked={detailOrder[index].add.some(
                     (element) => element === "no"
                   )}
@@ -201,29 +222,25 @@ const OrderDetails = ({ showMenuDetails, count }) => {
           </ResetSaveContainer>
         </OrderDataContainer>
       ))}
-      {detailOrder.every(
-        (info) =>
-          info.allergy !== "" && info.except !== null && info.add !== null
-      ) &&
-        addCount < count && (
-          <AddBtn
-            onClick={() => {
-              setDetailOrder(
-                detailOrder.concat({
-                  allergy: "",
-                  allergyText: "",
-                  except: [],
-                  add: [],
-                })
-              );
-              setAddCount(addCount + 1);
-            }}
-          >
-            추가하기(주문개수까지 가능)
-          </AddBtn>
-        )}
+      {addCount < count && (
+        <AddBtn
+          onClick={() => {
+            setDetailOrder(
+              detailOrder.concat({
+                allergy: "",
+                allergyText: "",
+                except: [],
+                add: [],
+              })
+            );
+            setAddCount(addCount + 1);
+          }}
+        >
+          추가하기(주문개수까지 가능)
+        </AddBtn>
+      )}
       {Object.keys(detailOrder[detailOrder.length - 1]).length !== 0 && (
-        <OrderBtn>주문하기</OrderBtn>
+        <OrderBtn onClick={handleValidaion}>주문하기</OrderBtn>
       )}
     </OrderContainer>
   );
