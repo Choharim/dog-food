@@ -3,7 +3,7 @@ import styled from "styled-components";
 import ButtonComponet from "../../../components/Button";
 import { useHistory } from "react-router-dom";
 
-const SuccessModal = ({ lecture, setLecture }) => {
+const SuccessModal = ({ lecture, setShowModal }) => {
   let history = useHistory();
 
   return (
@@ -15,7 +15,7 @@ const SuccessModal = ({ lecture, setLecture }) => {
         <BtnContainer>
           <CancleBtn
             onClick={() => {
-              setLecture({});
+              setShowModal(false);
               localStorage.removeItem("lecture");
             }}
           >

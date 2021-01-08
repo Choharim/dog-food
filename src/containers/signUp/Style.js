@@ -35,11 +35,13 @@ export const UserPictureLabel = styled.label`
   cursor: pointer;
 `;
 
-export const PreviewPicture = styled.img`
+export const PreviewPicture = styled.div`
   width: 150px;
   height: 150px;
   border-radius: 50%;
   align-self: center;
+  background-image: url(${(props) => props.image});
+  background-size: cover;
 `;
 
 export const PicturePlusIcon = styled(AiOutlinePlusCircle)`

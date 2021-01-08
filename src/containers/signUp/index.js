@@ -138,7 +138,7 @@ const SignUp = () => {
                 <PicturePlusIcon />
               </UserPictureLabel>
             ) : (
-              <PreviewPicture src={userObj.userPicture} />
+              <PreviewPicture image={userObj.userPicture} />
             )}
             <UserPicture
               id="userPicture"

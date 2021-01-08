@@ -193,7 +193,7 @@ const LectureDetails = ({ lecture, setLecture }) => {
           <ApplyBtn onClick={handleApplication}>수업 신청</ApplyBtn>
         </DetailsContainer>
       ) : (
-        <SuccessModal lecture={lecture} setLecture={setLecture} />
+        <SuccessModal lecture={lecture} setShowModal={setShowModal} />
       )}
     </>
   );
