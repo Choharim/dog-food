@@ -138,6 +138,9 @@ const OrderDetails = ({ showMenuDetails, count }) => {
                   <IngredientsCheck
                     value="no"
                     name="except"
+                    checked={detailOrder[index].except.some(
+                      (element) => element === "no"
+                    )}
                     onClick={handleExcept(index)}
                     type="checkbox"
                   />
@@ -147,6 +150,9 @@ const OrderDetails = ({ showMenuDetails, count }) => {
                 {showMenuDetails.ingredients.map((ing, i) => (
                   <IngredientsBtn
                     key={i}
+                    color={detailOrder[index].except.some(
+                      (item) => item === ing
+                    )}
                     value={ing}
                     name="except"
                     onClick={handleExcept(index)}
@@ -166,6 +172,9 @@ const OrderDetails = ({ showMenuDetails, count }) => {
                   value="no"
                   name="add"
                   onClick={handleAdd(index)}
+                  checked={detailOrder[index].add.some(
+                    (element) => element === "no"
+                  )}
                   type="checkbox"
                 />
               </AddItemCheckLabel>
@@ -174,6 +183,9 @@ const OrderDetails = ({ showMenuDetails, count }) => {
               {addItemArray.map((item, i) => (
                 <AddItemBtn
                   key={i}
+                  color={detailOrder[index].add.some(
+                    (element) => element === item
+                  )}
                   value={item}
                   name="add"
                   onClick={handleAdd(index)}
