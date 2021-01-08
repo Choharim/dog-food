@@ -3,6 +3,10 @@ import DaumPostcode from "react-daum-postcode";
 import {
   SignUpContainer,
   SignUpForm,
+  UserPicture,
+  UserPictureLabel,
+  PicturePlusIcon,
+  PreviewPicture,
   IDLabel,
   IDInput,
   PWLabel,
@@ -36,6 +40,7 @@ const SignUp = () => {
     zoneCode: "",
     address: "",
     phone: "",
+    userPicture: "",
   });
   const [usersArray, setUsersArray] = useState([]);
   const [signUpSuccess, setSignUpSuccess] = useState(false);
@@ -113,12 +118,34 @@ const SignUp = () => {
     localStorage.setItem("users", JSON.stringify(usersArray));
   }
 
+  const showPicture = (e) => {
+    e.preventDefault();
+    let reader = new FileReader();
+    reader.onloadend = () => {
+      setUserObj({ ...userObj, userPicture: reader.result });
+    };
+    reader.readAsDataURL(e.target.files[0]);
+  };
+  console.log(userObj);
   return (
     <SignUpContainer>
       {step === 1 && (
         <>
           <h1>Sign Up</h1>
           <SignUpForm onSubmit={handleSubmit}>
+            {userObj.userPicture === "" ? (
+              <UserPictureLabel htmlFor="userPicture">
+                <PicturePlusIcon />
+              </UserPictureLabel>
+            ) : (
+              <PreviewPicture src={userObj.userPicture} />
+            )}
+            <UserPicture
+              id="userPicture"
+              type="file"
+              accept="image/jpg,impge/png,image/jpeg,image/gif"
+              onChange={showPicture}
+            />
             <IDLabel>ID</IDLabel>
             <IDInput
               onChange={handleChange("id")}

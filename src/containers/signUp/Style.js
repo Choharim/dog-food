@@ -2,10 +2,11 @@ import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import { TiDelete } from "react-icons/ti";
+import { AiOutlinePlusCircle } from "react-icons/ai";
 
 export const SignUpContainer = styled.div`
   width: 100%;
-  margin-top: 200px;
+  margin-top: 100px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -16,6 +17,33 @@ export const SignUpForm = styled.form`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+`;
+
+export const UserPicture = styled.input`
+  display: none;
+`;
+
+export const UserPictureLabel = styled.label`
+  width: 150px;
+  height: 150px;
+  background-color: powderblue;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  cursor: pointer;
+`;
+
+export const PreviewPicture = styled.img`
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  align-self: center;
+`;
+
+export const PicturePlusIcon = styled(AiOutlinePlusCircle)`
+  font-size: 1.5rem;
 `;
 
 export const IDLabel = styled.label`
