@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { IoIosArrowUp } from "react-icons/io";
 import ButtonComponet from "../../../components/Button";
 
@@ -51,6 +51,11 @@ export const AllergyCheckBtn = styled(ButtonComponet)`
   width: 50%;
   margin: 0 10px;
   height: 40px;
+  ${(props) =>
+    props.color &&
+    css`
+      color: white;
+    `}
 `;
 
 export const AllergyInput = styled.input`
@@ -106,6 +111,11 @@ export const IngredientsBtn = styled(ButtonComponet)`
   width: 31%;
   margin: 5px 0;
   height: 40px;
+  ${(props) =>
+    props.color &&
+    css`
+      color: white;
+    `}
 `;
 
 export const AddItem = styled.div`
@@ -149,6 +159,11 @@ export const AddItemBtn = styled(ButtonComponet)`
   width: 31%;
   margin: 5px 0;
   height: 40px;
+  ${(props) =>
+    props.color &&
+    css`
+      color: white;
+    `}
 `;
 
 export const ResetSaveContainer = styled.div`

@@ -33,13 +33,70 @@ import {
 
 const OrderDetails = ({ showMenuDetails, count }) => {
   const addItemArray = ["맛보기 랜덤", "맛보기 연어쿠키", "미니 양치츄"];
-  const [detailOrder, setDetailOrder] = useState([{}]);
+  const [detailOrder, setDetailOrder] = useState([
+    { allergy: "", allergyText: "", except: [], add: [] },
+  ]);
   const [addCount, setAddCount] = useState(1);
 
+  const handleChoice = (input, index) => (e) => {
+    let copy = detailOrder.slice();
+    copy[index] = Object.assign(detailOrder[index], {
+      [input]: e.target.value,
+    });
+    if (e.target.value === "no") {
+      copy[index] = Object.assign(detailOrder[index], {
+        allergyText: "",
+      });
+    }
+    setDetailOrder(copy);
+  };
+  const handleExcept = (index) => (e) => {
+    let check;
+    let copy = detailOrder.slice();
+
+    if (e.target.value === "no") {
+      copy[index].except = ["no"];
+    } else {
+      if (detailOrder[index].except.some((item) => item === e.target.value)) {
+        check = detailOrder[index].except.filter(
+          (item) => item !== e.target.value && item !== "no"
+        );
+        copy[index].except = check;
+      } else {
+        check = detailOrder[index].except.filter((item) => item !== "no");
+        copy[index].except = check;
+        copy[index].except.push(e.target.value);
+      }
+    }
+    setDetailOrder(copy);
+  };
+
+  const handleAdd = (index) => (e) => {
+    let check;
+    let copy = detailOrder.slice();
+
+    if (e.target.value === "no") {
+      copy[index].add = ["no"];
+    } else {
+      if (detailOrder[index].add.some((item) => item === e.target.value)) {
+        check = detailOrder[index].add.filter(
+          (item) => item !== e.target.value && item !== "no"
+        );
+        copy[index].add = check;
+      } else {
+        check = detailOrder[index].add.filter((item) => item !== "no");
+        copy[index].add = check;
+        copy[index].add.push(e.target.value);
+      }
+    }
+    setDetailOrder(copy);
+  };
+
+  console.log(detailOrder);
   return (
     <OrderContainer>
       {detailOrder.map((food, index) => (
-        <OrderDataContainer>
+        <OrderDataContainer key={index}>
           <OrderDataHead>
             <FoodName>
               {showMenuDetails.name} {index + 1}
@@ -49,10 +106,28 @@ const OrderDetails = ({ showMenuDetails, count }) => {
           <Allergy>
             <AllergyTitle>알러지 유무</AllergyTitle>
             <AllergyBtnContainer>
-              <AllergyCheckBtn>O</AllergyCheckBtn>
-              <AllergyCheckBtn>X</AllergyCheckBtn>
+              <AllergyCheckBtn
+                color={detailOrder[index].allergy === "yes"}
+                value="yes"
+                onClick={handleChoice("allergy", index)}
+              >
+                O
+              </AllergyCheckBtn>
+              <AllergyCheckBtn
+                color={detailOrder[index].allergy === "no"}
+                value="no"
+                onClick={handleChoice("allergy", index)}
+              >
+                X
+              </AllergyCheckBtn>
             </AllergyBtnContainer>
-            <AllergyInput type="text" placeholder="알러지 종류를 적어주세요." />
+            {detailOrder[index].allergy === "yes" && (
+              <AllergyInput
+                onChange={handleChoice("allergyText", index)}
+                type="text"
+                placeholder="알러지 종류를 적어주세요."
+              />
+            )}
           </Allergy>
           {showMenuDetails.ingredients && (
             <Ingredients>
@@ -60,12 +135,24 @@ const OrderDetails = ({ showMenuDetails, count }) => {
                 <IngredientsTitle>제외할 재료 선택</IngredientsTitle>
                 <IngredientsCheckLabel>
                   없음
-                  <IngredientsCheck type="checkbox" />
+                  <IngredientsCheck
+                    value="no"
+                    name="except"
+                    onClick={handleExcept(index)}
+                    type="checkbox"
+                  />
                 </IngredientsCheckLabel>
               </IngredientsHead>
               <IngredientsBtnContainer>
-                {showMenuDetails.ingredients.map((ing) => (
-                  <IngredientsBtn>{ing}</IngredientsBtn>
+                {showMenuDetails.ingredients.map((ing, i) => (
+                  <IngredientsBtn
+                    key={i}
+                    value={ing}
+                    name="except"
+                    onClick={handleExcept(index)}
+                  >
+                    {ing}
+                  </IngredientsBtn>
                 ))}
               </IngredientsBtnContainer>
             </Ingredients>
@@ -75,12 +162,24 @@ const OrderDetails = ({ showMenuDetails, count }) => {
               <AddItemTitle>추가할 재료 선택</AddItemTitle>
               <AddItemCheckLabel>
                 없음
-                <AddItemCheck type="checkbox" />
+                <AddItemCheck
+                  value="no"
+                  name="add"
+                  onClick={handleAdd(index)}
+                  type="checkbox"
+                />
               </AddItemCheckLabel>
             </AddItemHead>
             <AddItemBtnContainer>
-              {addItemArray.map((item) => (
-                <AddItemBtn>{item}</AddItemBtn>
+              {addItemArray.map((item, i) => (
+                <AddItemBtn
+                  key={i}
+                  value={item}
+                  name="add"
+                  onClick={handleAdd(index)}
+                >
+                  {item}
+                </AddItemBtn>
               ))}
             </AddItemBtnContainer>
           </AddItem>
@@ -90,11 +189,21 @@ const OrderDetails = ({ showMenuDetails, count }) => {
           </ResetSaveContainer>
         </OrderDataContainer>
       ))}
-      {Object.keys(detailOrder[detailOrder.length - 1]).length !== 0 &&
+      {detailOrder.every(
+        (info) =>
+          info.allergy !== "" && info.except !== null && info.add !== null
+      ) &&
         addCount < count && (
           <AddBtn
             onClick={() => {
-              setDetailOrder(detailOrder.concat({}));
+              setDetailOrder(
+                detailOrder.concat({
+                  allergy: "",
+                  allergyText: "",
+                  except: [],
+                  add: [],
+                })
+              );
               setAddCount(addCount + 1);
             }}
           >

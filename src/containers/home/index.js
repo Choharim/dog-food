@@ -32,7 +32,9 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    setFavorite(JSON.parse(localStorage.getItem("favorite")));
+    if (localStorage.getItem("favorite")) {
+      setFavorite(JSON.parse(localStorage.getItem("favorite")));
+    }
   }, []);
 
   useEffect(() => {
@@ -46,7 +48,6 @@ const Home = () => {
   const filterFoodArray = (category) => {
     setFoodArray(Data.filter((food) => food.category === category));
   };
-  console.log(currentUserInfo);
 
   return (
     <>
@@ -56,7 +57,7 @@ const Home = () => {
             <UserPicture image={currentUserInfo.userPicture}></UserPicture>
           )}
           <BarIcon
-            showNavbar={showNavbar}
+            shownavbar={showNavbar}
             onClick={() => setShowNavbar(!showNavbar)}
           />
           {showNavbar && (
@@ -115,7 +116,7 @@ const BarIcon = styled(FaBars)`
   padding: 10px;
   z-index: 1000;
   ${(props) =>
-    props.showNavbar === true &&
+    props.shownavbar === true &&
     css`
       color: white;
     `};

@@ -120,7 +120,7 @@ const LectureDetails = ({ lecture, setLecture }) => {
             <Title>대신 준비해드려요</Title>
             <ServiceContainer>
               <ChoiceBtn
-                color={dataObj.items.find((item) => item === "apron")}
+                color={dataObj.items.some((item) => item === "apron")}
                 onClick={handleObj}
                 name="items"
                 value="apron"
@@ -128,7 +128,7 @@ const LectureDetails = ({ lecture, setLecture }) => {
                 앞치마
               </ChoiceBtn>
               <ChoiceBtn
-                color={dataObj.items.find((item) => item === "package")}
+                color={dataObj.items.some((item) => item === "package")}
                 onClick={handleObj}
                 name="items"
                 value="package"
@@ -136,7 +136,7 @@ const LectureDetails = ({ lecture, setLecture }) => {
                 포장 그릇
               </ChoiceBtn>
               <ChoiceBtn
-                color={dataObj.items.find((item) => item === "cushion")}
+                color={dataObj.items.some((item) => item === "cushion")}
                 onClick={handleObj}
                 name="items"
                 value="cushion"
@@ -144,7 +144,7 @@ const LectureDetails = ({ lecture, setLecture }) => {
                 강아지 방석
               </ChoiceBtn>
               <ChoiceBtn
-                color={dataObj.items.find((item) => item === "etc")}
+                color={dataObj.items.some((item) => item === "etc")}
                 onClick={handleObj}
                 name="items"
                 value="etc"
