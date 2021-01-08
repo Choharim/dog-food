@@ -123,7 +123,7 @@ const OrderUserInfo = () => {
               <OrderBtn onClick={() => setStep(step + 1)}>주문하기</OrderBtn>
             </Container>
           ) : (
-            <SuccessOrder setStep={setStep} />
+            <SuccessOrder setStep={setStep} orderInfo={orderInfo} />
           )}
         </>
       )}
