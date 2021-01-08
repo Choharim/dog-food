@@ -9,6 +9,8 @@ import {
   PWLabel,
   PWInput,
   PWError,
+  BtnContainer,
+  HomeBtn,
   SubmitBtn,
   SignUpBtn,
   SignUpIcon,
@@ -77,7 +79,10 @@ const LogIn = () => {
           value={currentUser.pw}
         />
         {pwError && <PWError>more than 3 and less than 10</PWError>}
-        <SubmitBtn type="submit">Log In</SubmitBtn>
+        <BtnContainer>
+          <HomeBtn onClick={() => history.push("/")} />
+          <SubmitBtn type="submit">Log In</SubmitBtn>
+        </BtnContainer>
       </LogInForm>
       <SignUpBtn to="/signUp">
         Sign Up

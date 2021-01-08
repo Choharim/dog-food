@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { FaDog } from "react-icons/fa";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import { BiHomeHeart } from "react-icons/bi";
 
 export const LogInContainer = styled.div`
   width: 100%;
@@ -54,13 +55,19 @@ export const PWError = styled.p`
   text-align: center;
 `;
 
+export const BtnContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 export const SubmitBtn = styled.button`
   width: 90px;
   height: 30px;
   outline: none;
   border-radius: 5px;
   padding: 5px 0;
-  align-self: flex-end;
 `;
 
 export const SignUpBtn = styled(Link)`
@@ -74,6 +81,11 @@ export const SignUpBtn = styled(Link)`
   &:visited {
     color: black;
   }
+`;
+
+export const HomeBtn = styled(BiHomeHeart)`
+  font-size: 1.8rem;
+  cursor: pointer;
 `;
 
 export const SignUpIcon = styled(AiOutlineArrowRight)`
